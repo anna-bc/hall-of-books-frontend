@@ -1,0 +1,18 @@
+.Navbar {
+  background-color: #644d46;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1260px;
+    margin: auto;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 40px;
+  }
+}
