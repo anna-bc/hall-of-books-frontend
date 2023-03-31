@@ -4,9 +4,10 @@
   --noto: "Noto Sans", sans-serif;
   --bookletter: "Goudy Bookletter 1911", serif;
 
-  --color-primary: #644D46;
-  --color-white: #FFFFFF;
-  --color-text: #363636;
+  --color-liver: #644D46;
+  --color-silver: #CECBCB;
+  --color-anti-flash-white: #EDEDED;
+  --color-jet: #363636;
 }
 
 
@@ -15,7 +16,7 @@ body {
   font-family: var(--noto);
   font-weight: 400;
   font-size: 16px;
-  color: var(--color-text);
+  color: var(--color-jet);
 }
 
 h1 {
