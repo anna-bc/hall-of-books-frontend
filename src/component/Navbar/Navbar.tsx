@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <div className="Navbar">
       <div className="Navbar__wrapper">
-        <div className="Navbar__logo">
+        <div className="Navbar__wrapper__logo">
           <svg
             width="167"
             height="100"
@@ -32,8 +32,8 @@ function Navbar() {
           <div className="Navbar__links__link">
             <a href="">Link 3</a>
           </div>
-          <button className="Navbar__links__link">
-            <a href="">Link 3</a>
+          <button className="Navbar__links__link--login">
+            <a href="">My Account</a>
           </button>
         </div>
       </div>
