@@ -1,0 +1,78 @@
+.Navbar {
+  background-color: var(--color-liver);
+  height: 10vh;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1260px;
+    height: 100%;
+    margin: auto;
+
+    &__logo {
+      height: 100%;
+      display: flex;
+      align-items: center;
+
+      & #logo {
+        height: 80%;
+        width: auto;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 20px;
+
+    &__link {
+      width: 100px;
+      height: 34px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & a {
+        color: var(--color-anti-flash-white);
+      }
+
+      &--login {
+        border-radius: 5px;
+        width: 100px;
+        background-color: var(--color-anti-flash-white);
+        border-style: solid;
+        
+        & a {
+          color: var(--color-jet);
+          font-size: 16px;
+        }
+      }
+
+      &--login:hover {
+        background-color: var(--color-liver);
+        border-color: var(--color-anti-flash-white);
+
+        & a {
+          color: var(--color-anti-flash-white);
+        }
+      }
+    }
+
+    &__link:hover {
+      border-radius: 5px;
+      background-color: var(--color-anti-flash-white);
+
+      & a {
+        color: var(--color-jet);
+      }
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+}
