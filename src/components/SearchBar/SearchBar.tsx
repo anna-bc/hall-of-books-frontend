@@ -37,21 +37,6 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
           />
         </div>
       </form>
-      {/* The code below will be replaced  */}
-      {data !== null && (
-        data.length === 0 ? (
-        <p>No results found.</p>
-      ) : (
-        <div>
-          {data.result.map((book : any) => (
-            <div key={book.id}>
-              <h2>{book.title}</h2>
-              <p>{book.description}</p>
-            </div>
-          ))}
-        </div>
-      )
-      )}
     </>
   );
 }
