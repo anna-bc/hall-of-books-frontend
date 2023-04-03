@@ -9,7 +9,7 @@ function Main() {
     fetch('http://localhost:8000/books/')
       .then(response => response.json())
       .then(data => {
-        const res = data.result
+        const res = data.data
         setBooks(res);
       })
       .catch(error => console.error(error));
