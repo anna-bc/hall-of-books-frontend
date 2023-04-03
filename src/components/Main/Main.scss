@@ -1,3 +1,13 @@
 .Main {
   background-color: var(--color-silver);
+  padding: 1rem 2rem;
+  width: 100%;
+  max-width: 1260px;
+  height: auto;
+  min-height: 80vh;
+  margin: auto;
+  display: flex;
+  gap: 59px;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Book } from '../../Models/Book';
 import './Main.scss';
 
 function Main() {
@@ -18,9 +19,9 @@ function Main() {
 
   return (
         <div className='Main'>
-          {books.map((book: any) => (
-            //<BookCard />
-            <div></div>
+          {books.map((book: Book) => (
+            //<BookCard key={book.id} book={book}/>
+            <div>{book.title}</div>
           )
           )}
         </div>

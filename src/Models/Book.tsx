@@ -6,4 +6,5 @@ export type Book = {
   authors: string[], 
   average_rating: number,
   num_available: number,
+  page_count: number,
 }
