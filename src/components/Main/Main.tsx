@@ -17,19 +17,13 @@ function Main() {
   console.log(books);
 
   return (
-    <div>
-
-        <ul>
+        <div className='Main'>
           {books.map((book: any) => (
-            <li key={book.id}>
-              <img src={book.thumbnailUrl} alt={book.title} /> 
-              <h2>{book.title}</h2>
-              <p>{book.description}</p> 
-            </li>
+            //<BookCard />
+            <div></div>
           )
           )}
-        </ul>
-    </div>
+        </div>
   );
 }
 
