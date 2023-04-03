@@ -13,7 +13,7 @@ function App() {
     thumbnailUrl: 'http://books.google.com/books/content?id=hxL2qWMAgv8C&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE71q-Gv3OQM1sK9cYHBEkCWViGMsZKfwzLRuyBjQtuqXZ5y6ArSxlUKr918yYYg_eHC31HSma3FOZGhiS6iJufx-x80eye7YTem__3DdQrYsGJ1A_S4Y9hrEXoZL9KLlx94VskqK&source=gbs_api',
     description: 'This is an example description.',
     authors: ['Author 1', 'Author 2'],
-    average_rating: 3.5,
+    average_rating: 4.5,
     num_available: 5,
   };
 
