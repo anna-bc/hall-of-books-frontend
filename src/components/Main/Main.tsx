@@ -4,14 +4,14 @@ import { Author } from '../../Models/Author';
 import './Main.scss';
 
 function Main() {
-  const [books, setBooks] = useState<any>([]);
+  const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {
     fetch('https://localhost:8000/books/')
       .then(response => response.json())
       .then(data => {
         const res = data.data.map((book: Book) => {
-          const authors = book.authors.map((author: Author) => '$(author.lastName');
+          const authors = book.authors.map((author: Author) => `${author.lastName}`);
           return { ...book, authors };
         });
         setBooks(res);
