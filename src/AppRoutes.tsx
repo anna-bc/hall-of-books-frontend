@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 import { Route, Routes } from "react-router-dom";
-import LoginForm from "./components/LoginForm/LoginForm";
 import Main from "./components/Main/Main";
 import { User } from "./models/User";
+import LoginPage from "./pages/LoginPage";
+
 
 function AppRoutes(props: {
   userData: User,
@@ -13,7 +14,7 @@ function AppRoutes(props: {
       <Route path={"/"} element={<Main />} />
       <Route
         path={"/login"}
-        element={<LoginForm userData={props.userData} setUserData={props.setUserData} />}
+        element={<LoginPage userData={props.userData} setUserData={props.setUserData} />}
       />
     </Routes>
   );
