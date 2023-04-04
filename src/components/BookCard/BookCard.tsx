@@ -22,7 +22,7 @@ function BookCard({ book }: BookCardProps) {
         <StarRating averageRating={book.averageRating}/>
         <p className="BookCard__info__availability">{book.numAvailable} item(-s) available</p>
         <div className="BookCard__links">
-          <a className="BookCard__links__borrow">Borrow</a>
+          <a href="#" className="BookCard__links__borrow">Borrow</a>
           {/* <BsSuitHeartFill /> */}
           <BsSuitHeart />
         </div>
