@@ -1,5 +1,5 @@
 import { Dispatch, FormEvent, SetStateAction, SyntheticEvent, useState } from "react";
-import { User } from "../../model/User";
+import { User } from "../../models/User";
 
 type LoginFormProps = {
   userData: User;
@@ -13,7 +13,7 @@ function LoginForm(props : LoginFormProps) {
   async function handleLogin(e : SyntheticEvent) {
     e.preventDefault();
     
-    const response = await fetch("http://localhost:8000/login", {
+    const response = await fetch("https://localhost:8000/login", {
         method: "POST",
         headers: {
             'Accept': 'application/json',

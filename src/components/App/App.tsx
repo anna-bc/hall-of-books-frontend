@@ -4,7 +4,8 @@ import LoginForm from "../LoginForm/LoginForm";
 import Navbar from "../Navbar/Navbar";
 import { useState } from "react";
 import LoginSuccess from "../LoginForm/LoginSuccess";
-import { User } from "../../model/User";
+import { User } from "../../models/User";
+import AppRoutes  from "../../AppRoutes";
 
 function App() {
   const [userData, setUserData] = useState<User>({
@@ -19,11 +20,7 @@ function App() {
     <div className="App">
       <Navbar />
       <SearchBar />
-      {!(userData.id >= 0) ? (
-        <LoginForm userData={userData} setUserData={setUserData} />
-      ) : (
-        <LoginSuccess />
-      )}
+      <AppRoutes userData={userData} setUserData={setUserData} />
     </div>
   );
 }

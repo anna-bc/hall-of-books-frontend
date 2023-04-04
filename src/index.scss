@@ -9,7 +9,9 @@
   --color-anti-flash-white: #EDEDED;
   --color-jet: #363636;
 }
-
+ * {
+  box-sizing: border-box;
+ }
 
 body {
   margin: 0;

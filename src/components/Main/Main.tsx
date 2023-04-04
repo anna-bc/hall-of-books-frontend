@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Book } from '../../Models/Book';
-import { Author } from '../../Models/Author';
+
+import { Author } from '../../models/Author';
+import { Book } from '../../models/Book';
 import './Main.scss';
 
 function Main() {
