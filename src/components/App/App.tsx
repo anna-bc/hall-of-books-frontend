@@ -4,7 +4,7 @@ import LoginForm from "../LoginForm/LoginForm";
 import Navbar from "../Navbar/Navbar";
 import { useState } from "react";
 import LoginSuccess from "../LoginForm/LoginSuccess";
-import { User } from "../../model/User";
+import { User } from "../../models/User";
 
 function App() {
   const [userData, setUserData] = useState<User>({
@@ -17,13 +17,17 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
-      <SearchBar />
-      {!(userData.id >= 0) ? (
-        <LoginForm userData={userData} setUserData={setUserData} />
-      ) : (
-        <LoginSuccess />
-      )}
+      <div className="App__Header">
+        <Navbar />
+        <SearchBar />
+      </div>
+      <div className="App__Body">
+        {!(userData.id >= 0) ? (
+          <LoginForm userData={userData} setUserData={setUserData} />
+        ) : (
+          <LoginSuccess />
+        )}
+      </div>
     </div>
   );
 }
