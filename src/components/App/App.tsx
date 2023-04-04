@@ -1,12 +1,16 @@
 import React from 'react';
-import './App.scss';
+import Main from '../Main/Main';
+import Navbar from '../Navbar/Navbar';
 import SearchBar from '../SearchBar/SearchBar';
+import './App.scss';
+
 
 function App() {
   return (
     <div className="App">
-    <SearchBar />
-  
+      <Navbar />
+      <SearchBar />
+      <Main/>
     </div>
   );
 }
