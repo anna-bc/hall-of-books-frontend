@@ -1,11 +1,12 @@
-import "./App.scss";
+import { useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import LoginForm from "../LoginForm/LoginForm";
 import Navbar from "../Navbar/Navbar";
-import { useState } from "react";
+import Main from '../Main/Main';
 import LoginSuccess from "../LoginForm/LoginSuccess";
 import { User } from "../../models/User";
 import AppRoutes  from "../../AppRoutes";
+import "./App.scss";
 
 function App() {
   const [userData, setUserData] = useState<User>({

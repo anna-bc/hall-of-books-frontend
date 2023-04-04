@@ -3,14 +3,14 @@ import { User } from "../../models/User";
 
 type LoginFormProps = {
   userData: User;
-  setUserData: Dispatch<SetStateAction<User>>,
-}
+  setUserData: Dispatch<SetStateAction<User>>;
+};
 
-function LoginForm(props : LoginFormProps) {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+function LoginForm(props: LoginFormProps) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  async function handleLogin(e : SyntheticEvent) {
+  async function handleLogin(e: SyntheticEvent) {
     e.preventDefault();
     
     const response = await fetch("https://localhost:8000/login", {
@@ -23,26 +23,39 @@ function LoginForm(props : LoginFormProps) {
     });
     const content = await response.json();
     console.log(content);
-    props.setUserData({...props.userData , id: 1, 
-        username: content.user.username, 
-        firstName: content.user.firstName, 
-        lastName: content.user.lastName, 
-        registrationDate: content.user.registrationDate });
+    props.setUserData({
+      ...props.userData,
+      id: 1,
+      username: content.user.username,
+      firstName: content.user.firstName,
+      lastName: content.user.lastName,
+      registrationDate: content.user.registrationDate,
+    });
   }
 
   return (
     <div className="LoginForm">
       <h3>Login</h3>
-      <form onSubmit={handleLogin}>
-        <label>
-          Username:
-          <input type="text" name="username" onChange={e => setUsername((e.target as HTMLInputElement).value)}></input>
-        </label>
-        <label>
-          Password:
-          <input type="password" name="password" onChange={e => setPassword((e.target as HTMLInputElement).value)}></input>
-        </label>
-        <input type="submit" value="Login"></input>
+      <form className="LoginForm__form" onSubmit={handleLogin}>
+        <input
+          className="LoginForm__form__input"
+          type="text"
+          name="username"
+          placeholder="Username"
+          onChange={(e) => setUsername((e.target as HTMLInputElement).value)}
+        ></input>
+        <input
+          className="LoginForm__form__input"
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={(e) => setPassword((e.target as HTMLInputElement).value)}
+        ></input>
+        <input
+          className="LoginForm__form__input LoginForm__form__input-button"
+          type="submit"
+          value="Login"
+        ></input>
       </form>
     </div>
   );
