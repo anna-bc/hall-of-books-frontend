@@ -6,7 +6,7 @@ export type Book = {
   thumbnailUrl: string, 
   description: string,
   authors: Author[], 
-  average_rating: number,
-  num_available: number,
+  averageRating: number,
+  numAvailable: number,
   page_count: number,
 }

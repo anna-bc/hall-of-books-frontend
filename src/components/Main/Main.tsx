@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Book } from '../../Models/Book';
 import { Author } from '../../Models/Author';
 import './Main.scss';
+import BookCard from '../BookCard/BookCard';
 
 function Main() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -24,8 +25,7 @@ function Main() {
   return (
         <div className='Main'>
           {books.map((book: Book) => (
-            //<BookCard key={book.id} book={book}/>
-            <div key={book.id}>{book.title}</div>
+            <BookCard key={book.id} book={book}/>
           )
           )}
         </div>
