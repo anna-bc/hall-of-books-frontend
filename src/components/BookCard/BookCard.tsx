@@ -10,8 +10,6 @@ type BookCardProps = {
 
 
 function BookCard({ book }: BookCardProps) {
-  const authors = book.authors.map((author) => console.log(author))
-  console.log(book.authors)
   
   return (
     <div className='BookCard'>
