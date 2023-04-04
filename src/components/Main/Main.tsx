@@ -7,7 +7,7 @@ function Main() {
   const [books, setBooks] = useState<any>([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/books/')
+    fetch('https://localhost:8000/books/')
       .then(response => response.json())
       .then(data => {
         const res = data.data.map((book: Book) => {
@@ -25,7 +25,7 @@ function Main() {
         <div className='Main'>
           {books.map((book: Book) => (
             //<BookCard key={book.id} book={book}/>
-            <div>{book.title}</div>
+            <div key={book.id}>{book.title}</div>
           )
           )}
         </div>
