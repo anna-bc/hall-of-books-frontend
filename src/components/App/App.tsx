@@ -1,10 +1,11 @@
-import "./App.scss";
+import { useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import LoginForm from "../LoginForm/LoginForm";
 import Navbar from "../Navbar/Navbar";
-import { useState } from "react";
+import Main from '../Main/Main';
 import LoginSuccess from "../LoginForm/LoginSuccess";
 import { User } from "../../models/User";
+import "./App.scss";
 
 function App() {
   const [userData, setUserData] = useState<User>({
@@ -22,6 +23,7 @@ function App() {
         <SearchBar />
       </div>
       <div className="App__Body">
+        <Main />
         {!(userData.id >= 0) ? (
           <LoginForm userData={userData} setUserData={setUserData} />
         ) : (
