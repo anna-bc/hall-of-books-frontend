@@ -12,4 +12,6 @@ export type Book = {
   numAvailable: number,
   pageCount: number,
   ratingsCount: number,
+  publisher: string, 
+  publishedDate: string,
 }

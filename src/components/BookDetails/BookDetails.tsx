@@ -40,6 +40,7 @@ function BookDetails({ book }: BookCardProps) {
         <div className="BookDetails__visual__image">
           <img src={bookDetails.thumbnailUrl} alt={bookDetails.title} />
         </div>
+        <h5 className="BookDetails__visual__availability">Availability: {bookDetails.numAvailable} item(-s) available</h5>
         <div className="BookDetails__visual__links">
           <a href="#" className="BookDetails__visual__links-borrow">Borrow</a>
           {/* <BsSuitHeartFill /> */}
@@ -53,8 +54,11 @@ function BookDetails({ book }: BookCardProps) {
         <p className="BookDetails__info__reviews">{bookDetails.ratingsCount } Reviews</p>
         <h4 className="BookDetails__info__category">{bookDetails.categories.join(", ")}</h4>
         <p className="BookDetails__info__description">{bookDetails.description}</p>
-        <h5 className="BookDetails__info__pages">Pages: {bookDetails.pageCount}</h5>
-        <h5 className="BookDetails__info__availability">Availability: {bookDetails.numAvailable} item(-s) available</h5>
+        <div className="BookDetails__extra">
+          <p className="BookDetails__extra__pages">Pages: {bookDetails.pageCount}</p>
+          <p className="BookDetails__extra__publisher">{bookDetails.publisher}</p>
+          <p className="BookDetails__extra__publishedDate">{bookDetails.publishedDate}</p>
+        </div>
       </div> 
     </div>
   )

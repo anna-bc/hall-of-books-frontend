@@ -19,8 +19,8 @@
       margin-bottom: 1em;
       max-width: 100%;
       img {
-      width: 14em;
-      height: 20em;
+      width: 18em;
+      height: 27em;
       object-fit:contain;
       }
     }
@@ -28,6 +28,7 @@
     &__links {
       display: flex;
       justify-content: space-around;
+      
 
       &-borrow{
           text-decoration: none;
@@ -48,6 +49,10 @@
         &-borrow:hover, svg:hover {
           opacity: 0.5;
         }
+    }
+    &__availability {
+      text-align: center;
+      margin-bottom: 1rem;
     }
   }
 
@@ -74,6 +79,15 @@
       text-align:justify;
       margin-bottom: 1rem;
       line-height: 1.5;
+    }
+  }
+  &__extra {
+    display: flex;
+    justify-content: space-around;
+
+    &__pages, &__publisher, &__publishedDate {
+    font-size: 14px;
+    font-weight: 500;
     }
   }
 }
