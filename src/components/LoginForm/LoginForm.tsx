@@ -1,5 +1,5 @@
 import { Dispatch, FormEvent, SetStateAction, SyntheticEvent, useState } from "react";
-import { User } from "../../models/User";
+import { User } from '../../models/User';
 
 type LoginFormProps = {
   userData: User;

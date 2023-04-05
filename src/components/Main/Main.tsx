@@ -4,6 +4,7 @@ import { Author } from '../../models/Author';
 import { Book } from '../../models/Book';
 import './Main.scss';
 import BookCard from '../BookCard/BookCard';
+import { Category } from '../../models/Category';
 
 function Main() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -14,7 +15,8 @@ function Main() {
       .then(data => {
         const res = data.data.map((book: Book) => {
           const authors = book.authors.map((author: Author) => `${author.lastName}`);
-          return { ...book, authors };
+          const categories = book.categories.map((category: Category) => `${category.categoryName}`);
+          return { ...book, authors, categories };
         });
         setBooks(res);
       })
