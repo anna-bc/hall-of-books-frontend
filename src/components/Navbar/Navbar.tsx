@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Navbar.scss";
 
 function Navbar() {
@@ -5,7 +6,8 @@ function Navbar() {
     <div className="Navbar">
       <div className="Navbar__wrapper">
         <div className="Navbar__wrapper__logo">
-          <svg id="logo"
+          <svg
+            id="logo"
             width="167"
             height="100"
             viewBox="0 0 167 100"
@@ -33,9 +35,11 @@ function Navbar() {
             <a href="">Link 3</a>
           </div>
           {/* TODO: add a check if user is logged in to display a "My Account" Button instead */}
-          <button className="Navbar__links__link--login">
-            <a href="">Login</a>
-          </button>
+          <Link to="/login">
+            <button className="Navbar__links__link Navbar__links__link--login">
+              Login
+            </button>
+          </Link>
         </div>
       </div>
     </div>

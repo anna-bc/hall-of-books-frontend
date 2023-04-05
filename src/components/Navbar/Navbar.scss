@@ -45,16 +45,14 @@
         width: 100px;
         background-color: var(--color-anti-flash-white);
         border-style: solid;
-        
-        & a {
-          color: var(--color-jet);
-          font-size: 16px;
-        }
+        color: var(--color-jet);
+        font-size: 16px;
       }
 
       &--login:hover {
         background-color: var(--color-liver);
-        border-color: var(--color-anti-flash-white);
+        border: 2px solid var(--color-anti-flash-white);
+        color: var(--color-anti-flash-white);
 
         & a {
           color: var(--color-anti-flash-white);
@@ -64,11 +62,7 @@
 
     &__link:hover {
       border-radius: 5px;
-      background-color: var(--color-anti-flash-white);
-
-      & a {
-        color: var(--color-jet);
-      }
+      border: 2px solid var(--color-anti-flash-white);
     }
   }
 }
