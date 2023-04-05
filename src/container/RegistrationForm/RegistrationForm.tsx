@@ -1,22 +1,32 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { BsPen } from "react-icons/bs"
 import { AiOutlineUser } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import "./RegistrationForm.scss";
+import { json } from "stream/consumers";
 
 function RegistrationForm() {
   const [user, setUser] = useState({
-    id: 0,
     username: "",
     firstName: "",
     lastName: "",
     password: "",
   });
 
+  async function handleSignup(e : SyntheticEvent) {
+    e.preventDefault();
+    const data = new FormData();
+    for (let property in user) {
+        data.append(property, user[property]);
+    }
+    const response = await fetch("https://localhost:8000/sign-up", {method: "POST", body: data});
+    const content = await response.json();
+  }
+
   return (
     <div className="RegistrationForm">
       <h3>Sign up</h3>
-      <form className="RegistrationForm__form">
+      <form className="RegistrationForm__form" onSubmit={handleSignup}>
         <div className="RegistrationForm__form__inputs">
           <div className="RegistrationForm__form__wrapper">
             <AiOutlineUser />
