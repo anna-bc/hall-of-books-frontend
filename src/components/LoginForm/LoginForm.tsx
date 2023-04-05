@@ -1,5 +1,7 @@
 import React from "react";
 import { Dispatch, FormEvent, SetStateAction, SyntheticEvent, useState } from "react";
+import { AiOutlineUser } from "react-icons/ai";
+import { RiLockPasswordLine } from "react-icons/ri";
 import { User } from "../../models/User";
 import "./LoginForm.scss"
 
@@ -39,20 +41,32 @@ function LoginForm(props: LoginFormProps) {
     <div className="LoginForm">
       <h3>Login</h3>
       <form className="LoginForm__form" onSubmit={handleLogin}>
-        <input
-          className="LoginForm__form__input"
-          type="text"
-          name="username"
-          placeholder="Username"
-          onChange={(e) => setUsername((e.target as HTMLInputElement).value)}
-        ></input>
-        <input
-          className="LoginForm__form__input"
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={(e) => setPassword((e.target as HTMLInputElement).value)}
-        ></input>
+        <div className="LoginForm__form__inputs">
+          <div className="LoginForm__form__wrapper">
+            <AiOutlineUser />
+            <input
+              className="LoginForm__form__input"
+              type="text"
+              name="username"
+              placeholder="Username"
+              onChange={(e) =>
+                setUsername((e.target as HTMLInputElement).value)
+              }
+            ></input>
+          </div>
+          <div className="LoginForm__form__wrapper">
+            <RiLockPasswordLine />
+            <input
+              className="LoginForm__form__input"
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={(e) =>
+                setPassword((e.target as HTMLInputElement).value)
+              }
+            ></input>
+          </div>
+        </div>
         <input
           className="LoginForm__form__input LoginForm__form__input-button"
           type="submit"
