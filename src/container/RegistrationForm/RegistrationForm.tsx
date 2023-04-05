@@ -1,11 +1,10 @@
-import React, { SyntheticEvent, useState } from "react";
-import { BsPen } from "react-icons/bs"
+import React, { Dispatch, SetStateAction, SyntheticEvent, useState } from "react";
+import { BsPen } from "react-icons/bs";
 import { AiOutlineUser } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import "./RegistrationForm.scss";
-import { json } from "stream/consumers";
 
-function RegistrationForm() {
+function RegistrationForm(props : { setSignedUp : Dispatch<SetStateAction<boolean>>}) {
   const [user, setUser] = useState({
     username: "",
     firstName: "",
@@ -13,14 +12,18 @@ function RegistrationForm() {
     password: "",
   });
 
-  async function handleSignup(e : SyntheticEvent) {
+  async function handleSignup(e: SyntheticEvent) {
     e.preventDefault();
     const data = new FormData();
     for (let property in user) {
-        data.append(property, user[property]);
+      data.append(property, user[property]);
     }
-    const response = await fetch("https://localhost:8000/sign-up", {method: "POST", body: data});
+    const response = await fetch("https://localhost:8000/sign-up", {
+      method: "POST",
+      body: data,
+    });
     const content = await response.json();
+    props.setSignedUp(true);
   }
 
   return (
@@ -43,35 +46,35 @@ function RegistrationForm() {
               }
             ></input>
           </div>
-        <div className="RegistrationForm__form__wrapper">
+          <div className="RegistrationForm__form__wrapper">
             <BsPen />
             <input
-            className="RegistrationForm__form__input"
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={(e) =>
-              setUser({
-                ...user,
-                password: (e.target as HTMLInputElement).value,
-              })
-            }
-          ></input>
+              className="RegistrationForm__form__input"
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={(e) =>
+                setUser({
+                  ...user,
+                  password: (e.target as HTMLInputElement).value,
+                })
+              }
+            ></input>
           </div>
           <div className="RegistrationForm__form__wrapper">
             <BsPen />
-          <input
-            className="RegistrationForm__form__input"
-            type="text"
-            name="firstName"
-            placeholder="First Name"
-            onChange={(e) =>
-              setUser({
-                ...user,
-                firstName: (e.target as HTMLInputElement).value,
-              })
-            }
-          ></input>
+            <input
+              className="RegistrationForm__form__input"
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              onChange={(e) =>
+                setUser({
+                  ...user,
+                  firstName: (e.target as HTMLInputElement).value,
+                })
+              }
+            ></input>
           </div>
           <div className="RegistrationForm__form__wrapper">
             <RiLockPasswordLine />

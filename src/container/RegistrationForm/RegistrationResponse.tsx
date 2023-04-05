@@ -1,9 +1,10 @@
 import React from "react";
+import "./RegistrationForm.scss";
 
 function RegistrationResponse() {
   return (
-    <div className="RegistrationResponse">
-      <h5>Your signup was succesfull</h5>
+    <div className="RegistrationForm RegistrationResponse">
+      <h4>Your signup was succesfull</h4>
     </div>
   )
 };

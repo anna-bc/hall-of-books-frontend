@@ -5,6 +5,7 @@ import Main from "./components/Main/Main";
 import RegistrationForm from "./container/RegistrationForm/RegistrationForm";
 import { User } from "./models/User";
 import LoginPage from "./pages/LoginPage";
+import RegistrationPage from "./pages/RegistrationPage";
 
 
 function AppRoutes(props: {
@@ -18,7 +19,7 @@ function AppRoutes(props: {
         path={"/login"}
         element={<LoginPage userData={props.userData} setUserData={props.setUserData} />}
       />
-      <Route path={"/sign-up"} element={<RegistrationForm />} />
+      <Route path={"/sign-up"} element={<RegistrationPage />} />
     </Routes>
   );
 };
