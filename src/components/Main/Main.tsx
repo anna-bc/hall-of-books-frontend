@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+
 import { Author } from '../../models/Author';
 import { Book } from '../../models/Book';
-
 import './Main.scss';
 import BookCard from '../BookCard/BookCard';
 
