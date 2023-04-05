@@ -1,6 +1,8 @@
+import React from "react";
 import { Dispatch, SetStateAction } from "react";
 import { Route, Routes } from "react-router-dom";
 import Main from "./components/Main/Main";
+import RegistrationForm from "./container/RegistrationForm/RegistrationForm";
 import { User } from "./models/User";
 import LoginPage from "./pages/LoginPage";
 
@@ -16,6 +18,7 @@ function AppRoutes(props: {
         path={"/login"}
         element={<LoginPage userData={props.userData} setUserData={props.setUserData} />}
       />
+      <Route path={"/sign-up"} element={<RegistrationForm />} />
     </Routes>
   );
 };
