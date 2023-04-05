@@ -47,7 +47,7 @@ function RegistrationForm(props : { setSignedUp : Dispatch<SetStateAction<boolea
             ></input>
           </div>
           <div className="RegistrationForm__form__wrapper">
-            <BsPen />
+            <RiLockPasswordLine />
             <input
               className="RegistrationForm__form__input"
               type="password"
@@ -77,7 +77,7 @@ function RegistrationForm(props : { setSignedUp : Dispatch<SetStateAction<boolea
             ></input>
           </div>
           <div className="RegistrationForm__form__wrapper">
-            <RiLockPasswordLine />
+            <BsPen />
             <input
               className="RegistrationForm__form__input"
               type="text"
