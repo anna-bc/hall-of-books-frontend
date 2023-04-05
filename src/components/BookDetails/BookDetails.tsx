@@ -9,7 +9,7 @@ import './BookDetails.scss';
 
 
 type BookCardProps = {
-  book: Book
+  book?: Book
 }
 
 function BookDetails({ book }: BookCardProps) {
