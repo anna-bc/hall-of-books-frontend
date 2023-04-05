@@ -1,4 +1,5 @@
 import { Author } from './Author';
+import { Category } from './Category';
 
 export type Book = {
   id: number,
@@ -6,7 +7,9 @@ export type Book = {
   thumbnailUrl: string, 
   description: string,
   authors: Author[], 
+  categories: Category[],
   averageRating: number,
   numAvailable: number,
-  page_count: number,
+  pageCount: number,
+  ratingsCount: number,
 }

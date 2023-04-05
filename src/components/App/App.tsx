@@ -21,7 +21,7 @@ function App() {
     <div className="App">
       <Navbar />
       <SearchBar />
-      <AppRoutes userData={userData} setUserData={setUserData} />
+      <AppRoutes userData={userData} setUserData={setUserData}  />
     </div>
   );
 }

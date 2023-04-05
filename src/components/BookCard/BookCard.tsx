@@ -2,6 +2,7 @@ import React from 'react';
 import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
 import { Book } from '../../models/Book';
 import StarRating from '../StarRating/StarRating';
+import { Link } from "react-router-dom";
 import './BookCard.scss';
 
 type BookCardProps = {
@@ -12,6 +13,7 @@ type BookCardProps = {
 function BookCard({ book }: BookCardProps) {
   
   return (
+    <Link to={`/book/${book.id}`}>
     <div className='BookCard'>
       <div className="BookCard__image">
         <img src={book.thumbnailUrl} alt={book.title} />
@@ -27,7 +29,8 @@ function BookCard({ book }: BookCardProps) {
           <BsSuitHeart />
         </div>
       </div>
-    </div>
+      </div>
+      </Link>
   )
 }
 
