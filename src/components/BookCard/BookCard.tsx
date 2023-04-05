@@ -1,0 +1,34 @@
+import React from 'react';
+import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
+import { Book } from '../../models/Book';
+import StarRating from '../StarRating/StarRating';
+import './BookCard.scss';
+
+type BookCardProps = {
+  book: Book
+}
+
+
+function BookCard({ book }: BookCardProps) {
+  
+  return (
+    <div className='BookCard'>
+      <div className="BookCard__image">
+        <img src={book.thumbnailUrl} alt={book.title} />
+      </div>
+      <div className="BookCard__info">
+        <h3 className="BookCard__info__title">{book.title}</h3>
+        <p className="BookCard__info__author">By {book.authors.join(", ")}</p>
+        <StarRating averageRating={book.averageRating}/>
+        <p className="BookCard__info__availability">{book.numAvailable} item(-s) available</p>
+        <div className="BookCard__links">
+          <a href="#" className="BookCard__links__borrow">Borrow</a>
+          {/* <BsSuitHeartFill /> */}
+          <BsSuitHeart />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default BookCard
