@@ -12,7 +12,8 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
   if (input.trim() !== '') { 
     //it is 'title' just for the testing purposes
-    fetch(`https://localhost:8000/books/title=${input}`)
+    const searchinput = input.replace(' ', '+');
+    fetch(`https://localhost:8000/books/title=${searchinput}`)
       .then((res) => res.json())
       .then((json) => {
         setData(json);
