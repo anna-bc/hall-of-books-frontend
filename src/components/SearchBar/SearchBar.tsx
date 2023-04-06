@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "./SearchBar.scss";
 
 function SearchBar() {
 
   const [input, setInput] = useState<string>("");
   const [data, setData] = useState<any>(null);
+  const navigate = useNavigate();
 
 
 const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
+  navigate("/search/" + input);
   if (input.trim() !== '') { 
     //it is 'title' just for the testing purposes
-    fetch(`https://localhost:8000/books/title=${input}`)
+    const searchinput = input.replace(' ', '+');
+    fetch(`https://localhost:8000/books/title=${searchinput}`)
       .then((res) => res.json())
       .then((json) => {
         setData(json);

@@ -7,12 +7,14 @@ import BookDetails from "./components/BookDetails/BookDetails";
 import Main from "./components/Main/Main";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
+import SearchedBooks from "./pages/SearchedBooks";
 
 
 function AppRoutes(props: { userData: User, setUserData: Dispatch<SetStateAction<User>>, book?: Book }){
   return (
     <Routes>
       <Route path={"/"} element={<Main />} />
+      <Route path="/search/:search" element={<SearchedBooks />} />
       <Route
         path={"/login"}
         element={<LoginPage userData={props.userData} setUserData={props.setUserData} />}
