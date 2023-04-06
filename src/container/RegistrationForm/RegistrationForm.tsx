@@ -23,7 +23,10 @@ function RegistrationForm(props : { setSignedUp : Dispatch<SetStateAction<boolea
       body: data,
     });
     const content = await response.json();
-    props.setSignedUp(true);
+    console.log(content);
+    if(content) {
+      props.setSignedUp(true);
+    }
   }
 
   return (
@@ -44,6 +47,7 @@ function RegistrationForm(props : { setSignedUp : Dispatch<SetStateAction<boolea
                   username: (e.target as HTMLInputElement).value,
                 })
               }
+              required
             ></input>
           </div>
           <div className="RegistrationForm__form__wrapper">
@@ -59,6 +63,7 @@ function RegistrationForm(props : { setSignedUp : Dispatch<SetStateAction<boolea
                   password: (e.target as HTMLInputElement).value,
                 })
               }
+              required
             ></input>
           </div>
           <div className="RegistrationForm__form__wrapper">
@@ -74,6 +79,7 @@ function RegistrationForm(props : { setSignedUp : Dispatch<SetStateAction<boolea
                   firstName: (e.target as HTMLInputElement).value,
                 })
               }
+              required
             ></input>
           </div>
           <div className="RegistrationForm__form__wrapper">
@@ -89,6 +95,7 @@ function RegistrationForm(props : { setSignedUp : Dispatch<SetStateAction<boolea
                   lastName: (e.target as HTMLInputElement).value,
                 })
               }
+              required
             ></input>
           </div>
         </div>
