@@ -1,0 +1,97 @@
+.BookDetails {
+  display: flex;
+  flex-direction: row;
+  width:80%;
+  max-width: 1260px;
+  height: 80%;
+  max-height: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  box-shadow: 0px 1px 3px var(--color-silver);
+  gap: 1rem;
+  background-color: var(--color-anti-flash-white);
+  border-radius: 5px;
+  
+  &__visual {
+    flex: 1;
+
+    &__image {
+      margin-bottom: 1em;
+      max-width: 100%;
+      img {
+      width: 18em;
+      height: 27em;
+      object-fit:contain;
+      }
+    }
+
+    &__links {
+      display: flex;
+      justify-content: space-around;
+      
+
+      &-borrow{
+          text-decoration: none;
+          display: inline-block;
+          padding: 5px 15px;
+          background-color: var(--color-liver);
+          border-radius: 0.5em;
+          color: var(--color-anti-flash-white);
+          cursor: pointer;
+      }
+      svg {
+          fill: var(--color-liver);
+          transform: translate(-30%, 30%);
+          scale: 2;
+          cursor: pointer;
+        }
+
+        &-borrow:hover, svg:hover {
+          opacity: 0.5;
+        }
+    }
+    &__availability {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__info {
+    flex: 3;
+
+    &__title {
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+    }
+
+    &__author, &__category,  &__reviews{
+      margin-bottom: 1rem;
+    }
+
+    svg {
+      margin-bottom: 1rem;
+    }
+
+    &__description {
+      height: 32rem;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align:justify;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+  }
+  &__extra {
+    display: flex;
+    justify-content: space-around;
+
+    &__pages, &__publisher, &__publishedDate {
+    font-size: 14px;
+    font-weight: 500;
+    }
+  }
+}
+
+.StarRating {
+  margin-bottom: 0.5rem;
+}

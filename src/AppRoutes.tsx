@@ -1,17 +1,15 @@
 import React from "react";
 import { Dispatch, SetStateAction } from "react";
 import { Route, Routes } from "react-router-dom";
-import Main from "./components/Main/Main";
-import RegistrationForm from "./container/RegistrationForm/RegistrationForm";
+import { Book } from "./models/Book";
 import { User } from "./models/User";
+import BookDetails from "./components/BookDetails/BookDetails";
+import Main from "./components/Main/Main";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
 
 
-function AppRoutes(props: {
-  userData: User,
-  setUserData: Dispatch<SetStateAction<User>>,
-}) {
+function AppRoutes(props: { userData: User, setUserData: Dispatch<SetStateAction<User>>, book?: Book }){
   return (
     <Routes>
       <Route path={"/"} element={<Main />} />
@@ -20,6 +18,7 @@ function AppRoutes(props: {
         element={<LoginPage userData={props.userData} setUserData={props.setUserData} />}
       />
       <Route path={"/sign-up"} element={<RegistrationPage />} />
+      <Route path={"/book/:id"} element={<BookDetails book={props.book} />} />
     </Routes>
   );
 };
