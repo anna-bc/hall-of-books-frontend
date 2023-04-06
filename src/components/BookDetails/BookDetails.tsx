@@ -15,6 +15,7 @@ type BookCardProps = {
 function BookDetails({ book }: BookCardProps) {
   let params = useParams();
   const [bookDetails, setBookDetails] = useState<Book | null>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   
   useEffect(() => {
@@ -34,6 +35,12 @@ function BookDetails({ book }: BookCardProps) {
   if (bookDetails === null) {
     return <div>Loading...</div>;
   }
+
+    
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  }
+
   return (
     <div className='BookDetails'>
     <div className="BookDetails__visual">
@@ -43,8 +50,7 @@ function BookDetails({ book }: BookCardProps) {
         <h5 className="BookDetails__visual__availability">Availability: {bookDetails.numAvailable} item(-s) available</h5>
         <div className="BookDetails__visual__links">
           <a href="#" className="BookDetails__visual__links-borrow">Borrow</a>
-          {/* <BsSuitHeartFill /> */}
-          <BsSuitHeart />
+          {isFavorite ? <BsSuitHeartFill onClick={toggleFavorite} /> : <BsSuitHeart onClick={toggleFavorite} />}
         </div>
       </div>
       <div className="BookDetails__info">

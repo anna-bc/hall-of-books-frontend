@@ -14,10 +14,23 @@ function BookCard({ book }: BookCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   
   const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  }
+    fetch(`https://localhost:8000/my/favorites/${book.id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(res => {
+        console.log(res)
+        if (res.ok) {
+          setIsFavorite(!isFavorite);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
 
-  console.log(isFavorite);
+  }
 
   return (
     <div className='BookCard'>
