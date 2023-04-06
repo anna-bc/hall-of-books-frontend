@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
 import { Book } from '../../models/Book';
 import StarRating from '../StarRating/StarRating';
@@ -11,7 +11,14 @@ type BookCardProps = {
 
 
 function BookCard({ book }: BookCardProps) {
+  const [isFavorite, setIsFavorite] = useState(false);
   
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  }
+
+  console.log(isFavorite);
+
   return (
     <div className='BookCard'>
       <Link to={`/book/${book.id}`}>
@@ -28,8 +35,7 @@ function BookCard({ book }: BookCardProps) {
         <p className="BookCard__info__availability">{book.numAvailable} item(-s) available</p>
         <div className="BookCard__links">
           <a href="#" className="BookCard__links__borrow">Borrow</a>
-          {/* <BsSuitHeartFill /> */}
-          <BsSuitHeart />
+          {isFavorite ? <BsSuitHeartFill onClick={toggleFavorite} /> : <BsSuitHeart onClick={toggleFavorite} />}
         </div>
       </div>
       </div>
