@@ -9,13 +9,13 @@ import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
 
 
-function AppRoutes(props: { userData: User, setUserData: Dispatch<SetStateAction<User>>, book?: Book }){
+function AppRoutes(props: { book?: Book }){
   return (
     <Routes>
       <Route path={"/"} element={<Main />} />
       <Route
         path={"/login"}
-        element={<LoginPage userData={props.userData} setUserData={props.setUserData} />}
+        element={<LoginPage />}
       />
       <Route path={"/sign-up"} element={<RegistrationPage />} />
       <Route path={"/book/:id"} element={<BookDetails book={props.book} />} />

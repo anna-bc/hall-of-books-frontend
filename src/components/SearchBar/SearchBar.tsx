@@ -11,17 +11,19 @@ function SearchBar() {
 const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
   if (input.trim() !== '') { 
+    const searchinput = input.replace(' ', '+');
+    console.log(searchinput);
     //it is 'title' just for the testing purposes
-    fetch(`https://localhost:8000/books/title=${input}`)
+    fetch(`https://localhost:8000/books/title=${searchinput}`)
       .then((res) => res.json())
-      .then((json) => {
-        setData(json);
+      .then((resData) => {
+        setData(resData);
         setInput("");
       });
   }
 };
 
-  console.log(data);
+console.log(data);
 
   return (
     <>
