@@ -1,13 +1,17 @@
-import React from "react";
-import { Dispatch, FormEvent, SetStateAction, SyntheticEvent, useState } from "react";
+import { Dispatch, SyntheticEvent, useState } from "react";
+
 import { AiOutlineUser } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { User } from "../../models/User";
-import "./LoginForm.scss"
+
+import "./LoginForm.scss";
+
+import { InitialStateType } from "../../state/InitialState";
+import { Actions, ActionType } from "../../state/actions/Actions";
+import { StateContext } from "../../state/context/StateContext";
 
 type LoginFormProps = {
-  userData: User;
-  setUserData: Dispatch<SetStateAction<User>>;
+  state: InitialStateType;
+  dispatch: Dispatch<ActionType>;
 };
 
 function LoginForm(props: LoginFormProps) {
@@ -16,24 +20,23 @@ function LoginForm(props: LoginFormProps) {
 
   async function handleLogin(e: SyntheticEvent) {
     e.preventDefault();
-    
+
     const response = await fetch("https://localhost:8000/login", {
-        method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 'username': username, 'password': password })
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username, password: password }),
     });
     const content = await response.json();
-    console.log(content);
-    props.setUserData({
-      ...props.userData,
-      id: 1,
-      username: content.user.username,
-      firstName: content.user.firstName,
-      lastName: content.user.lastName,
-      registrationDate: content.user.registrationDate,
+    props.dispatch({
+      type: Actions.setUserIdentifier,
+      payload: { userIdentifier: content.user.username },
+    });
+    props.dispatch({
+      type: Actions.setIsAuthenticated,
+      payload: { isAuthenticated: true },
     });
   }
 
