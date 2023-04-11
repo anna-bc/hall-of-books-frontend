@@ -8,6 +8,7 @@ import Main from "./components/Main/Main";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
 import SearchedBooks from "./pages/SearchedBooks/SearchedBooks";
+import Err404Page from "./pages/Err404/Err404page";
 
 
 function AppRoutes(props: { userData: User, setUserData: Dispatch<SetStateAction<User>>, book?: Book }){
@@ -21,6 +22,7 @@ function AppRoutes(props: { userData: User, setUserData: Dispatch<SetStateAction
       />
       <Route path={"/sign-up"} element={<RegistrationPage />} />
       <Route path={"/book/:id"} element={<BookDetails book={props.book} />} />
+      <Route path={"/search"} element={<Err404Page error={"invalidInput"} />} />
     </Routes>
   );
 };

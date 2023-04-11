@@ -34,7 +34,7 @@ function SearchedBooks() {
   }
 
   if (searchedBooks.length === 0) {
-    return <Err404Page />;
+    return <Err404Page error={"notFound"} />
   }
 
 
