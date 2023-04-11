@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
 import BookCard from "../../components/BookCard/BookCard";
+import { Author } from "../../models/Author";
+import { Book } from "../../models/Book";
+import { Category } from "../../models/Category";
 import Err404Page from "../Err404/Err404page";
 import "./SearchedBooks.scss";
 
@@ -14,8 +17,13 @@ function SearchedBooks() {
     setLoading(true); 
     try {
       const data = await fetch(`https://localhost:8000/books/title=${searchinput}`);
-      const books = await data.json();
-      setSearchedBooks(books.data);
+      const content = await data.json();
+      const books = content.data.map((book : Book ) => {
+        const authors = book.authors.map((author: Author ) => `${author.lastName}`);
+        const categories = book.categories.map((category : Category ) => `${category.categoryName}`);
+        return {...book, authors, categories};
+      })
+      setSearchedBooks(books);
       setLoading(false);
     }
     catch (error) {
