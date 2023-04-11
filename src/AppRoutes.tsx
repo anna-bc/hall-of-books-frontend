@@ -7,7 +7,7 @@ import BookDetails from "./components/BookDetails/BookDetails";
 import Main from "./components/Main/Main";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
-import SearchedBooks from "./pages/SearchedBooks";
+import SearchedBooks from "./pages/SearchedBooks/SearchedBooks";
 
 
 function AppRoutes(props: { userData: User, setUserData: Dispatch<SetStateAction<User>>, book?: Book }){

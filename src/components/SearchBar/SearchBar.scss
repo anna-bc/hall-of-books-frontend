@@ -2,6 +2,12 @@
   background-color: var(--color-anti-flash-white);
   padding: 0.5rem 0;
 
+  &__error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
   &__wrapper {
     position: relative;
     width: 50%;

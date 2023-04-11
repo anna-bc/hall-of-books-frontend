@@ -6,29 +6,27 @@ import "./SearchBar.scss";
 function SearchBar() {
 
   const [input, setInput] = useState<string>("");
-  const [data, setData] = useState<any>(null);
+  const [error, setError] = useState<boolean>(false);
   const navigate = useNavigate();
 
 
-const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  navigate("/search/" + input);
-  if (input.trim() !== '') { 
-    //it is 'title' just for the testing purposes
-    const searchinput = input.replace(' ', '+');
-    fetch(`https://localhost:8000/books/title=${searchinput}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setData(json);
-        setInput("");
-      });
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError(false);
+  if (input.trim() !== "") {
+    const searchInput = input.replace(/ /g, '+');
+    navigate("/search/" + searchInput);
+    setInput("");
+  } else {
+    setInput("");
+    setError(true);
   }
 };
 
-  console.log(data);
 
   return (
     <>
+      {error && <p className="SearchBar__error">Please enter a search term</p>}
       <form onSubmit={handleSubmit} className="SearchBar">
         <div className="SearchBar__wrapper">
           <FaSearch />
