@@ -10,4 +10,25 @@
   gap: 59px;
   justify-content: space-between;
   flex-wrap: wrap;
+
+  &__loader {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto, 
+  }
+
+  &__error {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center; 
+    margin-top: 0.5rem;
+    color: red;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    opacity: .7;
+  }
 }
