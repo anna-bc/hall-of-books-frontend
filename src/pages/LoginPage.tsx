@@ -1,20 +1,21 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
+
 import LoginForm from "../components/LoginForm/LoginForm";
 import LoginSuccess from "../components/LoginForm/LoginSuccess";
+
 import { User } from "../models/User";
 
-type LoginFormProps = {
-  userData: User;
-  setUserData: Dispatch<SetStateAction<User>>;
-};
+import { StateContext } from "../state/context/StateContext";
 
-function LoginPage(props: LoginFormProps) {
+
+function LoginPage() {
+  const { state, dispatch } = useContext(StateContext);
   return (
     <>
-      {!(props.userData.id >= 0) ? (
-        <LoginForm userData={props.userData} setUserData={props.setUserData} />
+      {!state.isAuthenticated ? (
+        <LoginForm state={state} dispatch={dispatch} />
       ) : (
-        <LoginSuccess username={props.userData.username} />
+        <LoginSuccess username={state.userIdentifier} />
       )}
     </>
   );
