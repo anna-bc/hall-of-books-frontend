@@ -9,6 +9,12 @@ type BookCardProps = {
   book: Book
 }
 
+function truncateString(str, maxLength) {
+  if (str.length > maxLength) {
+    return str.slice(0, maxLength) + "...";
+  }
+  return str;
+}
 
 function BookCard({ book }: BookCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -41,7 +47,7 @@ function BookCard({ book }: BookCardProps) {
       </Link>
       <div className="BookCard__info">
         <Link to={`/book/${book.id}`}>
-          <h3 className="BookCard__info__title">{book.title}</h3>
+          <h3 className="BookCard__info__title">{truncateString(book.title, 50)}</h3>
         </Link>
         <p className="BookCard__info__author">By {book.authors.join(", ")}</p>
         <StarRating averageRating={book.averageRating}/>
