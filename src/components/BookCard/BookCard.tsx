@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import defaultImage from '../../assets/noImage.png';
@@ -19,25 +19,57 @@ function truncateString(str, maxLength) {
 
 function BookCard({ book }: BookCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
-  
+  const token = 'hob_8a895bff9d49cb69f62ab003779cb0c47a31bb67471ab2a2e2e0c836372aaf6a';
+
+    useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const response = await fetch('https://localhost:8000/my/favorites', {
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const isBookFavorite = data.favorites.some(favorite => favorite.id === book.id);
+          setIsFavorite(isBookFavorite);
+        } else {
+          console.error('Error fetching favorites:', response.status);
+        }
+      } catch (error) {
+        console.error('Error fetching favorites:', error);
+      }
+    };
+
+    fetchFavorites();
+  }, [book.id]); 
+
   const toggleFavorite = () => {
-    fetch(`https://localhost:8000/my/favorites/${book.id}`, {
-      method: 'POST',
+    const url = isFavorite
+      ? `https://localhost:8000/my/favorites/remove/${book.id}` 
+      : `https://localhost:8000/my/favorites/add/${book.id}`; 
+    
+    const token = 'hob_8a895bff9d49cb69f62ab003779cb0c47a31bb67471ab2a2e2e0c836372aaf6a';
+      
+    fetch(url, {
+      method: isFavorite ? 'POST' : 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-      }
+        "Authorization": `Bearer ${token}`,
+      },
     })
-      .then(res => {
-        console.log(res)
-        if (res.ok) {
+      .then((response) => {
+        if (response.ok) {
           setIsFavorite(!isFavorite);
         }
       })
-      .catch(error => {
-        console.error(error);
+      .catch((error) => {
+        console.error('Error:', error);
       });
+  };
 
-  }
 
   return (
     <div className='BookCard'>
@@ -46,7 +78,7 @@ function BookCard({ book }: BookCardProps) {
         {book.thumbnailUrl ? (
             <img src={book.thumbnailUrl} alt={book.title} />
           ) : (
-          <img src={defaultImage} alt="Default Image" /> 
+          <img src={defaultImage} alt="Default Book Cover" /> 
           )}
         </div>
       </Link>
