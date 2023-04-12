@@ -1,0 +1,34 @@
+.SearchedBooks {
+  background-color: var(--color-silver);
+  padding: 1rem 2rem;
+  width: 100%;
+  max-width: 1260px;
+  height: auto;
+  min-height: 80vh;
+  margin: auto;
+  display: flex;
+  gap: 59px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  &__loader {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto, 
+  }
+
+  &__error {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center; 
+    margin-top: 0.5rem;
+    color: red;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    opacity: .7;
+  }
+}

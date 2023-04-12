@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <div className="Navbar">
       <div className="Navbar__wrapper">
-        <div className="Navbar__wrapper__logo">
+        <Link to="/"  className="Navbar__wrapper__logo">
           <svg
             id="logo"
             width="167"
@@ -24,7 +24,7 @@ function Navbar() {
               fill="white"
             />
           </svg>
-        </div>
+          </Link>
         <div className="Navbar__links">
           <div className="Navbar__links__link">
             <a href="">Link 1</a>
