@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
+import defaultImage from '../../assets/noImage.png';
 import { Author } from "../../models/Author";
 import { Book } from '../../models/Book';
 import { Category } from "../../models/Category";
@@ -45,7 +46,11 @@ function BookDetails({ book }: BookCardProps) {
     <div className='BookDetails'>
     <div className="BookDetails__visual">
         <div className="BookDetails__visual__image">
-          <img src={bookDetails.thumbnailUrl} alt={bookDetails.title} />
+          {bookDetails.thumbnailUrl ? (
+            <img src={bookDetails.thumbnailUrl} alt={bookDetails.title} />
+            ) : (
+          <img src={defaultImage} alt="Default Image" /> 
+          )}
         </div>
         <h5 className="BookDetails__visual__availability">Availability: {bookDetails.numAvailable} item(-s) available</h5>
         <div className="BookDetails__visual__links">

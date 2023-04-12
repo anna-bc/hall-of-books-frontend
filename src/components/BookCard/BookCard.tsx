@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
+import React from 'react';
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import defaultImage from '../../assets/noImage.png';
 import { Book } from '../../models/Book';
 import StarRating from '../StarRating/StarRating';
-import { Link } from "react-router-dom";
 import './BookCard.scss';
 
 type BookCardProps = {
@@ -42,7 +43,11 @@ function BookCard({ book }: BookCardProps) {
     <div className='BookCard'>
       <Link to={`/book/${book.id}`}>
         <div className="BookCard__image">
-          <img src={book.thumbnailUrl} alt={book.title} />
+        {book.thumbnailUrl ? (
+            <img src={book.thumbnailUrl} alt={book.title} />
+          ) : (
+          <img src={defaultImage} alt="Default Image" /> 
+          )}
         </div>
       </Link>
       <div className="BookCard__info">
