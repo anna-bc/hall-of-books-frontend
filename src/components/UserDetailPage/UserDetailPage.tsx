@@ -12,7 +12,8 @@ function UserDetailPage() {
     fetch('https://localhost:8000/my/favorites')
       .then(response => response.json())
       .then(data => {
-        const res = data.data.map((book: Book) => {
+        console.log(data)
+        const res = data.favorites.map((book: Book) => {
           const authors = book.authors.map((author: Author) => `${author.lastName}`);
           const categories = book.categories.map((category: Category) => `${category.categoryName}`);
           return { ...book, authors, categories };
@@ -21,35 +22,37 @@ function UserDetailPage() {
       })
       .catch(error => console.error(error));
   }, []);
-
-  useEffect(() => {
-    fetch('https://localhost:8000/my/borrowed')
-      .then(response => response.json())
-      .then(data => {
-        const res = data.data.map((book: Book) => {
-          const authors = book.authors.map((author: Author) => `${author.lastName}`);
-          const categories = book.categories.map((category: Category) => `${category.categoryName}`);
-          return { ...book, authors, categories };
-        });
-        setBooks(res);
-      })
-      .catch(error => console.error(error));
-  }, []);
+  console.log(books);
+  // useEffect(() => {
+  //   fetch('https://localhost:8000/my/borrowed')
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       const res = data.data.map((book: Book) => {
+  //         const authors = book.authors.map((author: Author) => `${author.lastName}`);
+  //         const categories = book.categories.map((category: Category) => `${category.categoryName}`);
+  //         return { ...book, authors, categories };
+  //       });
+  //       setBooks(res);
+  //     })
+  //     .catch(error => console.error(error));
+  // }, []);
 
   return (
     <div className='UserDetailPage'>
       <div className='favorites'>
         <h1>Your Favorites</h1>
+        <div>
         {books.map((book: Book) => (
           <BookCard key={book.id} book={book} />
         ))}
+          </div>
       </div>
-      <div className='borrowed'>
+      {/* <div className='borrowed'>
         <h1>Your Borrowed Books</h1>
         {books.map((book: Book) => (
           <BookCard key={book.id} book={book} />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
