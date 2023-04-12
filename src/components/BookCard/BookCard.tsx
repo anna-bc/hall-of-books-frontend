@@ -21,6 +21,7 @@ function BookCard({ book }: BookCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const token = 'hob_8a895bff9d49cb69f62ab003779cb0c47a31bb67471ab2a2e2e0c836372aaf6a';
 
+  
     useEffect(() => {
     const fetchFavorites = async () => {
       try {

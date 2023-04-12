@@ -15,32 +15,78 @@ type BookCardProps = {
 
 function BookDetails({ book }: BookCardProps) {
   let params = useParams();
+  const token = 'hob_8a895bff9d49cb69f62ab003779cb0c47a31bb67471ab2a2e2e0c836372aaf6a';
   const [bookDetails, setBookDetails] = useState<Book | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
 
   
   useEffect(() => {
-    fetch(`https://localhost:8000/books/id=${params.id}`)
-      .then(response => response.json())
-      .then(data => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://localhost:8000/books/id=${params.id}`);
+        const data = await response.json();
         const book = data.data;
         const authors = book.authors.map((author: Author) => `${author.lastName}`);
         const categories = book.categories.map((category: Category) => `${category.categoryName}`);
         const bookDetails = { ...book, authors, categories };
         setBookDetails(bookDetails);
         console.log(bookDetails);
-      })
-      .catch(error => console.error(error));
-  },  [params.id]);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    const fetchFavorites = async () => {
+      try {
+        const response = await fetch('https://localhost:8000/my/favorites', {
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`,
+          },
+        });
 
+        if (response.ok) {
+          const data = await response.json();
+          const isBookFavorite = data.favorites.some(favorite => favorite.id === params.id);
+          setIsFavorite(isBookFavorite);
+        } else {
+          console.error('Error fetching favorites:', response.status);
+        }
+      } catch (error) {
+        console.error('Error fetching favorites:', error);
+      }
+    };
+
+
+    fetchData();
+    fetchFavorites();
+  }, [params.id]);
+
+  
+  const toggleFavorite  = () =>{
+    const url = isFavorite
+      ? `https://localhost:8000/my/favorites/remove/${params.id}`
+      : `https://localhost:8000/my/favorites/add/${params.id}`;
+
+    fetch(url, {
+      method: isFavorite ? 'POST' : 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          setIsFavorite(!isFavorite);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
   if (bookDetails === null) {
     return <div>Loading...</div>;
   }
 
-    
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  }
 
   return (
     <div className='BookDetails'>
@@ -55,7 +101,7 @@ function BookDetails({ book }: BookCardProps) {
         <h5 className="BookDetails__visual__availability">Availability: {bookDetails.numAvailable} item(-s) available</h5>
         <div className="BookDetails__visual__links">
           <a href="#" className="BookDetails__visual__links-borrow">Borrow</a>
-          {isFavorite ? <BsSuitHeartFill onClick={toggleFavorite} /> : <BsSuitHeart onClick={toggleFavorite} />}
+          {isFavorite ? <BsSuitHeartFill onClick={toggleFavorite}  /> : <BsSuitHeart onClick={toggleFavorite}  />}
         </div>
       </div>
       <div className="BookDetails__info">
