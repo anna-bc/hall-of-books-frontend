@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Navbar.scss";
+import "../Navbar.scss";
 
-function Navbar() {
+function NavbarLoggedIn() {
   return (
     <div className="Navbar">
       <div className="Navbar__wrapper">
-        <Link to="/"  className="Navbar__wrapper__logo">
+        <Link to="/" className="Navbar__wrapper__logo">
           <svg
             id="logo"
             width="167"
@@ -24,7 +24,7 @@ function Navbar() {
               fill="white"
             />
           </svg>
-          </Link>
+        </Link>
         <div className="Navbar__links">
           <Link to="/" className="Navbar__links__link">
             <a>Home</a>
@@ -33,12 +33,12 @@ function Navbar() {
             <a href="">Link 2</a>
           </div>
           <Link to="/sign-up" className="Navbar__links__link">
-            <a>Sign Up</a>
+            <a>My Profile</a>
           </Link>
           {/* TODO: add a check if user is logged in to display a "My Account" Button instead */}
-          <Link to="/login">
+          <Link to="/logout">
             <button className="Navbar__links__link Navbar__links__link--login">
-              Login
+              Logout
             </button>
           </Link>
         </div>
@@ -47,4 +47,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavbarLoggedIn;
