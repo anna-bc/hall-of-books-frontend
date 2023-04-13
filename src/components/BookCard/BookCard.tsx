@@ -3,8 +3,9 @@ import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import defaultImage from '../../assets/noImage.png';
 import useBorrowed from '../../hooks/useBorrowed';
+import useFavorites from '../../hooks/useFavorites';
 import { Book } from '../../models/Book';
-import { Actions, ActionType } from '../../state/actions/Actions';
+import { ActionType, Actions } from '../../state/actions/Actions';
 import { StateContext } from '../../state/context/StateContext';
 import StarRating from '../StarRating/StarRating';
 import './BookCard.scss';
@@ -18,15 +19,19 @@ function BookCard({ book }: BookCardProps) {
 
   const {state, dispatch} = useContext(StateContext);
   const [borrowedList, setBookId] = useBorrowed({ token: state.token, borrowedList: state.borrowedList, dispatch: dispatch });
+  const [favoritesList, setFavoritesBookId] = useFavorites ({ token: state.token, favoritesList: state.favoritesList, dispatch: dispatch });
   
   useEffect(() => {
     dispatch({
       type: Actions.setBorrowedList,
       payload: { borrowedList: borrowedList },
     });
-  }, [borrowedList]);
+    dispatch({
+      type: Actions.setFavoritesList,
+      payload: { favoritesList: favoritesList },
+    });
+  }, [borrowedList, favoritesList]);
 
-  console.log(state.borrowedList);
 
   return (
     <div className="BookCard">
@@ -52,7 +57,7 @@ function BookCard({ book }: BookCardProps) {
           {!state.borrowedList.includes(book.id) ? 
           (
             <a
-            href="#"
+            href="/#"
             className="BookCard__links__borrow"
             onClick={() => setBookId(book.id)}
           >
@@ -60,7 +65,7 @@ function BookCard({ book }: BookCardProps) {
           </a>) :
           (
             <a
-            href="#"
+            href="/#"
             className="BookCard__links__borrow"
             onClick={() => setBookId(book.id)}
           >
@@ -68,8 +73,19 @@ function BookCard({ book }: BookCardProps) {
           </a>
           )
           }
-          {/* <BsSuitHeartFill /> */}
-          <BsSuitHeart />
+
+          {!state.favoritesList.includes(book.id) ? 
+          (
+            <BsSuitHeart
+            onClick={() => setFavoritesBookId(book.id)}
+          />
+          ) :
+          (
+            <BsSuitHeartFill
+            onClick={() => setFavoritesBookId(book.id)}
+          />
+          )
+          }
         </div>
       </div>
     </div>
