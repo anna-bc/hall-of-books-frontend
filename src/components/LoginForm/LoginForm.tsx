@@ -1,12 +1,12 @@
 import { Dispatch, SyntheticEvent, useState } from "react";
-
 import { AiOutlineUser } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 import "./LoginForm.scss";
 
 import { InitialStateType } from "../../state/InitialState";
-import { Actions, ActionType } from "../../state/actions/Actions";
+import { ActionType, Actions } from "../../state/actions/Actions";
 import { StateContext } from "../../state/context/StateContext";
 
 type LoginFormProps = {
@@ -17,6 +17,12 @@ type LoginFormProps = {
 function LoginForm(props: LoginFormProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  if (props.state.isAuthenticated) {
+    navigate("/");
+    return null; 
+  }
 
   async function handleLogin(e: SyntheticEvent) {
     e.preventDefault();
@@ -42,6 +48,7 @@ function LoginForm(props: LoginFormProps) {
       type: Actions.setToken,
       payload: { token: content.token },
     });
+    navigate("/");
   }
 
   return (
