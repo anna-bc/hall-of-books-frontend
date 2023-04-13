@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import defaultImage from '../../assets/noImage.png';
 import { Author } from "../../models/Author";
 import { Book } from '../../models/Book';
 import { Category } from "../../models/Category";
+import { StateContext } from "../../state/context/StateContext";
 import StarRating from '../StarRating/StarRating';
 import './BookDetails.scss';
 
@@ -15,6 +16,7 @@ type BookCardProps = {
 
 function BookDetails({ book }: BookCardProps) {
   let params = useParams();
+  const {state} = useContext(StateContext);
   const [bookDetails, setBookDetails] = useState<Book | null>(null);
 
   

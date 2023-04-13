@@ -26,7 +26,14 @@ function BookCard({ book }: BookCardProps) {
     });
   }, [borrowedList]);
 
-  console.log(state.borrowedList);
+  function handleClick() {
+    if(!state.isAuthenticated) {
+      alert("You need to be logged in to be able to borrow books!");
+    }
+    else {
+      setBookId(book.id);
+    }
+  }
 
   return (
     <div className="BookCard">
@@ -54,7 +61,7 @@ function BookCard({ book }: BookCardProps) {
             <a
             href="#"
             className="BookCard__links__borrow"
-            onClick={() => setBookId(book.id)}
+            onClick={handleClick}
           >
             Borrow
           </a>) :
@@ -62,7 +69,7 @@ function BookCard({ book }: BookCardProps) {
             <a
             href="#"
             className="BookCard__links__borrow"
-            onClick={() => setBookId(book.id)}
+            onClick={handleClick}
           >
             Return
           </a>
