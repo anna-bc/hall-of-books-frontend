@@ -32,7 +32,7 @@ function NavbarLoggedIn() {
           <div className="Navbar__links__link">
             <a href="">Link 2</a>
           </div>
-          <Link to="/sign-up" className="Navbar__links__link">
+          <Link to="/user" className="Navbar__links__link">
             <a>My Profile</a>
           </Link>
           {/* TODO: add a check if user is logged in to display a "My Account" Button instead */}
