@@ -5,13 +5,12 @@ import "./App.scss";
 
 import AppRoutes from "../../AppRoutes";
 import { User } from "../../models/User";
+import NavbarPage from "../../pages/NavbarPage";
 import { initialState, InitialStateType } from "../../state/InitialState";
 import { StateContext } from "../../state/context/StateContext";
 import stateReducer from "../../state/reducer/StateReducer";
-
-import Navbar from "../Navbar/Navbar";
-
 import SearchBar from "../SearchBar/SearchBar";
+
 
 
 
@@ -23,7 +22,7 @@ function App() {
     <StateContext.Provider value={{state, dispatch}}>
       <div className="App">
         <div className="App_Header">
-          <Navbar />
+          <NavbarPage />
           <SearchBar />
         </div>
         <div className="App_Body">

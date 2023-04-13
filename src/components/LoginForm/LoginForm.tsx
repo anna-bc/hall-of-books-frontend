@@ -38,6 +38,10 @@ function LoginForm(props: LoginFormProps) {
       type: Actions.setIsAuthenticated,
       payload: { isAuthenticated: true },
     });
+    props.dispatch({
+      type: Actions.setToken,
+      payload: { token: content.token },
+    });
   }
 
   return (
