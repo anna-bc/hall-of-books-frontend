@@ -4,8 +4,9 @@ import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import defaultImage from '../../assets/noImage.png';
 import useBorrowed from '../../hooks/useBorrowed';
+import useFavorites from '../../hooks/useFavorites';
 import { Book } from '../../models/Book';
-import { Actions, ActionType } from '../../state/actions/Actions';
+import { ActionType, Actions } from '../../state/actions/Actions';
 import { StateContext } from '../../state/context/StateContext';
 import StarRating from '../StarRating/StarRating';
 import './BookCard.scss';
@@ -18,12 +19,22 @@ type BookCardProps = {
 function BookCard({ book }: BookCardProps) {
 
   const {state, dispatch} = useContext(StateContext);
-  const [borrowedList, borrowedBook, setBookId] = useBorrowed({ token: state.token, borrowedList: state.borrowedList, book: book, dispatch: dispatch });
+  const [borrowedList, borrowedBook, setBookId] = useBorrowed({ token: state.token, borrowedList: state.borrowedList, dispatch: dispatch });
+  const [favoritesList, setFavoritesBookId] = useFavorites ({ token: state.token, favoritesList: state.favoritesList, dispatch: dispatch });
   const [updatedBook, setUpdatedBook] = useState<Book>(book);
   
   useEffect(() => {
+    if(borrowedBook === undefined) {
+      return;
+    }
     setUpdatedBook(borrowedBook);
-  }, [borrowedBook]);
+    dispatch({
+      type: Actions.setFavoritesList,
+      payload: { favoritesList: favoritesList },
+    });
+    setBookId('');
+  }, [borrowedBook, favoritesList]);
+
 
   return (
     <div className="BookCard">
@@ -50,7 +61,6 @@ function BookCard({ book }: BookCardProps) {
         <div className="BookCard__links">
           {!state.borrowedList.includes(updatedBook.id) ? (
             <a
-              href="#"
               className="BookCard__links__borrow"
               onClick={() => setBookId(updatedBook.id)}
             >
@@ -58,15 +68,25 @@ function BookCard({ book }: BookCardProps) {
             </a>
           ) : (
             <a
-              href="#"
               className="BookCard__links__borrow"
               onClick={() => setBookId(updatedBook.id)}
             >
               Return
             </a>
           )}
-          {/* <BsSuitHeartFill /> */}
-          <BsSuitHeart />
+
+          {!state.favoritesList.includes(book.id) ? 
+          (
+            <BsSuitHeart
+            onClick={() => setFavoritesBookId(book.id)}
+          />
+          ) :
+          (
+            <BsSuitHeartFill
+            onClick={() => setFavoritesBookId(book.id)}
+          />
+          )
+          }
         </div>
       </div>
     </div>

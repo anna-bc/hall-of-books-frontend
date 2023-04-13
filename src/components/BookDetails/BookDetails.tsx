@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import defaultImage from '../../assets/noImage.png';
+import useFavorites from '../../hooks/useFavorites';
+import useBorrowed from '../../hooks/useBorrowed';
 import { Author } from "../../models/Author";
 import { Book } from '../../models/Book';
 import { Category } from "../../models/Category";
 import StarRating from '../StarRating/StarRating';
+import { StateContext } from '../../state/context/StateContext';
+import { ActionType, Actions } from '../../state/actions/Actions';
 import './BookDetails.scss';
 
 
 type BookCardProps = {
-  book?: Book
+  book: Book
 }
 
-function BookDetails({ book }: BookCardProps) {
+function BookDetails() {
   let params = useParams();
+  const {state, dispatch} = useContext(StateContext);
   const [bookDetails, setBookDetails] = useState<Book | null>(null);
-
+  const [borrowedList, borrowedBook, setBookId] = useBorrowed({ token: state.token, borrowedList: state.borrowedList, dispatch: dispatch });
+  const [favoritesList, setFavoritesBookId] = useFavorites ({ token: state.token, favoritesList: state.favoritesList, dispatch: dispatch });
   
   useEffect(() => {
     fetch(`https://localhost:8000/books/id=${params.id}`)
@@ -27,14 +33,35 @@ function BookDetails({ book }: BookCardProps) {
         const categories = book.categories.map((category: Category) => `${category.categoryName}`);
         const bookDetails = { ...book, authors, categories };
         setBookDetails(bookDetails);
-        console.log(bookDetails);
       })
       .catch(error => console.error(error));
   },  [params.id]);
+  
+  useEffect(() => {
+    if (borrowedBook === undefined) {
+      return;
+    }
+    setBookDetails(borrowedBook);
+  }, [borrowedBook]);
+
+    useEffect(() => {
+    dispatch({
+      type: Actions.setBorrowedList,
+      payload: { borrowedList: borrowedList },
+    });
+    dispatch({
+      type: Actions.setFavoritesList,
+      payload: { favoritesList: favoritesList },
+    });
+  }, [borrowedList, favoritesList]);
+
+
 
   if (bookDetails === null) {
     return <div>Loading...</div>;
   }
+
+
   return (
     <div className='BookDetails'>
     <div className="BookDetails__visual">
@@ -46,10 +73,38 @@ function BookDetails({ book }: BookCardProps) {
           )}
         </div>
         <h5 className="BookDetails__visual__availability">Availability: {bookDetails.numAvailable} item(-s) available</h5>
-        <div className="BookDetails__visual__links">
-          <a href="#" className="BookDetails__visual__links-borrow">Borrow</a>
-          {/* <BsSuitHeartFill /> */}
-          <BsSuitHeart />
+        <div className="BookCard__links">
+          {!state.borrowedList.includes(bookDetails.id) ? 
+          (
+            <a
+            href="#"
+            className="BookCard__links__borrow"
+            onClick={() => setBookId(bookDetails.id)}
+          >
+            Borrow
+          </a>) :
+          (
+            <a
+            href="#"
+            className="BookCard__links__borrow"
+            onClick={() => setBookId(bookDetails.id)}
+          >
+            Return
+          </a>
+          )
+          }
+          {!state.favoritesList.includes(bookDetails.id) ? 
+          (
+            <BsSuitHeart
+            onClick={() => setFavoritesBookId(bookDetails.id)}
+          />
+          ) :
+          (
+            <BsSuitHeartFill
+            onClick={() => setFavoritesBookId(bookDetails.id)}
+          />
+          )
+          }
         </div>
       </div>
       <div className="BookDetails__info">

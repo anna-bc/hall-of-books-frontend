@@ -7,14 +7,13 @@ import { Actions, ActionType } from "../state/actions/Actions";
 function useBorrowed(state: {
   token: string;
   borrowedList: string[];
-  book: Book;
   dispatch: (value: ActionType) => void;
 }) {
   const [borrowedList, setBorrowedList] = useState<string[]>(
     state.borrowedList
   );
   const [bookId, setBookId] = useState<string>("");
-  const [borrowedBook, setBorrowedBook] = useState<Book>(state.book);
+  const [borrowedBook, setBorrowedBook] = useState<Book>();
 
   useEffect(() => {
     if (bookId === "") {
