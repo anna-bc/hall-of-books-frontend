@@ -1,0 +1,44 @@
+.UserProfile{
+  width: 80vw;
+  margin: auto;
+  padding: 1rem 0;
+
+  &__tabs {
+    width: 200px;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+
+    &__button {
+    border-radius: 5px;
+    width: 100px;
+    background-color: var(--color-anti-flash-white);
+    border-style: solid;
+    color: var(--color-jet);
+    font-size: 16px;
+
+      &--active {
+        background-color: var(--color-liver);
+        color: var( --color-silver);
+      }
+    }
+  }
+
+  &__wrapper{
+    &__title{
+      text-align: center;
+      letter-spacing: 1.5px;
+    }
+    &__books{
+      padding: 1rem 2rem;
+      width: 100%;
+      max-width: 1260px;
+      height: auto;
+      min-height: 80vh;
+      margin: auto;
+      display: flex;
+      gap: 59px;
+      justify-content: space-between;
+      flex-wrap: wrap;  
+    }
+  }
+}
