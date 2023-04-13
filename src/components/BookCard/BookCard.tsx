@@ -24,7 +24,6 @@ function BookCard({ book }: BookCardProps) {
   const { state } = useContext(StateContext);
   
   useEffect(() => {
-    console.log(state.token);
     const fetchFavorites = async () => {
       try {
         const response = await fetch('https://localhost:8000/my/favorites', {
@@ -53,8 +52,6 @@ function BookCard({ book }: BookCardProps) {
     const url = isFavorite
       ? `https://localhost:8000/my/favorites/remove/${book.id}` 
       : `https://localhost:8000/my/favorites/add/${book.id}`; 
-    
-    const token = 'hob_8a895bff9d49cb69f62ab003779cb0c47a31bb67471ab2a2e2e0c836372aaf6a';
       
     fetch(url, {
       method: isFavorite ? 'POST' : 'DELETE',
@@ -72,7 +69,6 @@ function BookCard({ book }: BookCardProps) {
         console.error('Error:', error);
       });
   };
-
 
   return (
     <div className='BookCard'>
