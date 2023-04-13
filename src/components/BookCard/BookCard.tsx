@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { Dispatch, useContext } from 'react';
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import defaultImage from '../../assets/noImage.png';
@@ -16,8 +16,7 @@ type BookCardProps = {
 function BookCard({ book }: BookCardProps) {
 
   const {state, dispatch} = useContext(StateContext);
-  // const [favoritesList, setId] = useAddBorrowed({token: state.token});
-  
+  const [favoritesList, setId] = useAddBorrowed({token: state.token});
   
   return (
     <div className="BookCard">
@@ -40,7 +39,7 @@ function BookCard({ book }: BookCardProps) {
           {book.numAvailable} item(-s) available
         </p>
         <div className="BookCard__links">
-          <a href="#" className="BookCard__links__borrow">
+          <a href="#" className="BookCard__links__borrow" onClick={() => setId(book.id)}>
             Borrow
           </a>
           {/* <BsSuitHeartFill /> */}

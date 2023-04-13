@@ -5,9 +5,11 @@ import { InitialStateType } from "../state/InitialState";
 function useAddBorrowed(props : {token: string}) {
    const [favoritesList, setFavoritesList] = useState([]);
    const [bookId, setId] = useState('');
-   console.log(props.token);
 
    useEffect(() => {
+    if (bookId === '') {
+      return;
+    }
     fetch(`https://localhost:8000/my/borrowed/${bookId}`, {
       headers: {
         Authorization: `Bearer ${props.token}`,
@@ -21,11 +23,7 @@ function useAddBorrowed(props : {token: string}) {
       });
    }, [bookId]);
 
-   useEffect(() => {
-      console.log('waiting to add borrowed');
-   }, []);
-
-   return [favoritesList, setId];
+   return [favoritesList, setId] as const;
 };
 
 export default useAddBorrowed;
