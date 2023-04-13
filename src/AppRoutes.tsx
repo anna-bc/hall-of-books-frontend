@@ -9,7 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
 import SearchedBooks from "./pages/SearchedBooks/SearchedBooks";
 import Err404Page from "./pages/Err404/Err404page";
-import UserDetailPage from "./components/UserDetailPage/UserDetailPage";
+import Logout from "./components/Logout/Logout";
 
 
 function AppRoutes(props: { book?: Book }){
@@ -21,6 +21,7 @@ function AppRoutes(props: { book?: Book }){
         path={"/login"}
         element={<LoginPage />}
       />
+      <Route path={"/logout"} element={<Logout />} />
       <Route path={"/sign-up"} element={<RegistrationPage />} />
       <Route path={"/book/:id"} element={<BookDetails book={props.book} />} />
       <Route path={"/search"} element={<Err404Page error={"invalidInput"} />} />

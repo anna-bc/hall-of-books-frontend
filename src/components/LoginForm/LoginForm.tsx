@@ -1,13 +1,13 @@
 import { Dispatch, SyntheticEvent, useState } from "react";
-
 import { AiOutlineUser } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 import "./LoginForm.scss";
 
 import { InitialStateType } from "../../state/InitialState";
 import { Actions, ActionType } from "../../state/actions/Actions";
-import { StateContext } from "../../state/context/StateContext";
+import { Book } from "../../models/Book";
 
 type LoginFormProps = {
   state: InitialStateType;
@@ -17,6 +17,12 @@ type LoginFormProps = {
 function LoginForm(props: LoginFormProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  if (props.state.isAuthenticated) {
+    navigate("/");
+    return null; 
+  }
 
   async function handleLogin(e: SyntheticEvent) {
     e.preventDefault();
@@ -30,6 +36,7 @@ function LoginForm(props: LoginFormProps) {
       body: JSON.stringify({ username: username, password: password }),
     });
     const content = await response.json();
+    console.log(content.user.borrowedBooks);
     props.dispatch({
       type: Actions.setUserIdentifier,
       payload: { userIdentifier: content.user.username },
@@ -38,6 +45,22 @@ function LoginForm(props: LoginFormProps) {
       type: Actions.setIsAuthenticated,
       payload: { isAuthenticated: true },
     });
+    props.dispatch({
+      type: Actions.setToken,
+      payload: { token: content.token },
+    });
+    props.dispatch({
+      type: Actions.setBorrowedList,
+      payload: { borrowedList: content.user.borrowedBooks.map((book : Book) => book.id) },
+    });
+    props.dispatch({
+      type: Actions.setFavoritesList,
+      payload: {
+        favoritesList: content.user.favorites.map((book: Book) => book.id),
+      },
+    });
+    console.log(props.state.borrowedList);
+    navigate("/");
   }
 
   return (
