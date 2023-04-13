@@ -14,14 +14,14 @@ import './BookDetails.scss';
 
 
 type BookCardProps = {
-  book?: Book
+  book: Book
 }
 
-function BookDetails({ book }: BookCardProps) {
+function BookDetails() {
   let params = useParams();
   const {state, dispatch} = useContext(StateContext);
   const [bookDetails, setBookDetails] = useState<Book | null>(null);
-  const [borrowedList, setBookId] = useBorrowed({ token: state.token, borrowedList: state.borrowedList, dispatch: dispatch });
+  const [borrowedList, borrowedBook, setBookId] = useBorrowed({ token: state.token, borrowedList: state.borrowedList, dispatch: dispatch });
   const [favoritesList, setFavoritesBookId] = useFavorites ({ token: state.token, favoritesList: state.favoritesList, dispatch: dispatch });
   
   useEffect(() => {
@@ -36,18 +36,26 @@ function BookDetails({ book }: BookCardProps) {
       })
       .catch(error => console.error(error));
   },  [params.id]);
-
+  
+  useEffect(() => {
+    if (borrowedBook === undefined) {
+      return;
+    }
+    setBookDetails(borrowedBook);
+    setBookId('');
+  }, [borrowedBook]);
 
     useEffect(() => {
-    dispatch({
-      type: Actions.setBorrowedList,
-      payload: { borrowedList: borrowedList },
-    });
+    // dispatch({
+    //   type: Actions.setBorrowedList,
+    //   payload: { borrowedList: borrowedList },
+    // });
     dispatch({
       type: Actions.setFavoritesList,
       payload: { favoritesList: favoritesList },
     });
-  }, [borrowedList, favoritesList]);
+    setFavoritesBookId('');
+  }, [favoritesList]);
 
 
 

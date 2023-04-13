@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Author } from "../models/Author";
 import { Book } from "../models/Book";
+import { Category } from "../models/Category";
 import { Actions, ActionType } from "../state/actions/Actions";
-import { InitialStateType } from "../state/InitialState";
 
 function useBorrowed(state: {
   token: string;
@@ -12,6 +13,7 @@ function useBorrowed(state: {
     state.borrowedList
   );
   const [bookId, setBookId] = useState<string>("");
+  const [borrowedBook, setBorrowedBook] = useState<Book>();
 
   useEffect(() => {
     if (bookId === "") {
@@ -37,6 +39,13 @@ function useBorrowed(state: {
               payload: { borrowedList: borrowed },
             });
             setBorrowedList(borrowed);
+            const authors = content.book.authors.map(
+              (author: Author) => `${author.lastName}`
+            );
+            const categories = content.book.categories.map(
+              (category: Category) => `${category.categoryName}`
+            );
+            setBorrowedBook({...content.book, authors, categories});
           }
         });
     } else {
@@ -58,13 +67,20 @@ function useBorrowed(state: {
               payload: { borrowedList: borrowed },
             });
             setBorrowedList(borrowed);
+            const authors = content.book.authors.map(
+              (author: Author) => `${author.lastName}`
+            );
+            const categories = content.book.categories.map(
+              (category: Category) => `${category.categoryName}`
+            );
+            setBorrowedBook({ ...content.book, authors, categories });
           }
         });
     }
 
   }, [bookId]);
 
-  return [borrowedList, setBookId] as const;
+  return [borrowedList, borrowedBook, setBookId] as const;
 }
 
 export default useBorrowed;
