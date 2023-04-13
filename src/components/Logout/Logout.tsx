@@ -28,6 +28,8 @@ function Logout() {
             type: Actions.setUserIdentifier,
             payload: { userIdentifier: '' },
           });
+
+          localStorage.removeItem('state');
         }
         if (content.success == false) {
             console.log(content.message);

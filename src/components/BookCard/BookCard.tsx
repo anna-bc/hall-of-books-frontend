@@ -26,8 +26,6 @@ function BookCard({ book }: BookCardProps) {
     });
   }, [borrowedList]);
 
-  console.log(state.borrowedList);
-
   return (
     <div className="BookCard">
       <Link to={`/book/${book.id}`}>
