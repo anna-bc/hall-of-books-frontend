@@ -42,18 +42,20 @@ function BookDetails() {
       return;
     }
     setBookDetails(borrowedBook);
+    setBookId('');
   }, [borrowedBook]);
 
     useEffect(() => {
-    dispatch({
-      type: Actions.setBorrowedList,
-      payload: { borrowedList: borrowedList },
-    });
+    // dispatch({
+    //   type: Actions.setBorrowedList,
+    //   payload: { borrowedList: borrowedList },
+    // });
     dispatch({
       type: Actions.setFavoritesList,
       payload: { favoritesList: favoritesList },
     });
-  }, [borrowedList, favoritesList]);
+    setFavoritesBookId('');
+  }, [favoritesList]);
 
 
 
