@@ -7,7 +7,7 @@ import "./LoginForm.scss";
 
 import { InitialStateType } from "../../state/InitialState";
 import { Actions, ActionType } from "../../state/actions/Actions";
-import { StateContext } from "../../state/context/StateContext";
+import { Book } from "../../models/Book";
 
 type LoginFormProps = {
   state: InitialStateType;
@@ -30,6 +30,7 @@ function LoginForm(props: LoginFormProps) {
       body: JSON.stringify({ username: username, password: password }),
     });
     const content = await response.json();
+    console.log(content.user.borrowedBooks);
     props.dispatch({
       type: Actions.setUserIdentifier,
       payload: { userIdentifier: content.user.username },
@@ -42,6 +43,17 @@ function LoginForm(props: LoginFormProps) {
       type: Actions.setToken,
       payload: { token: content.token },
     });
+    props.dispatch({
+      type: Actions.setBorrowedList,
+      payload: { borrowedList: content.user.borrowedBooks.map((book : Book) => book.id) },
+    });
+    props.dispatch({
+      type: Actions.setFavoritesList,
+      payload: {
+        favoritesList: content.user.favorites.map((book: Book) => book.id),
+      },
+    });
+    console.log(props.state.borrowedList);
   }
 
   return (
