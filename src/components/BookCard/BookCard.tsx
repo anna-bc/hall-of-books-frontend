@@ -17,7 +17,7 @@ type BookCardProps = {
 function BookCard({ book }: BookCardProps) {
 
   const {state, dispatch} = useContext(StateContext);
-  const [borrowedList, setBookId] = useAddBorrowed({ token: state.token, borrowedList: state.borrowedList, dispatch: dispatch });
+  const [borrowedList, setBookId] = useBorrowed({ token: state.token, borrowedList: state.borrowedList, dispatch: dispatch });
   
   useEffect(() => {
     dispatch({
