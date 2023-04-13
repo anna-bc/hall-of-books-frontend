@@ -17,14 +17,14 @@ import { ActionType, Actions } from "../../state/actions/Actions";
 import StarRating from "../StarRating/StarRating";
 
 type BookCardProps = {
-  book?: Book;
+  book: Book;
 };
 
-function BookDetails({ book }: BookCardProps) {
+function BookDetails() {
   let params = useParams();
   const { state, dispatch } = useContext(StateContext);
   const [bookDetails, setBookDetails] = useState<Book | null>(null);
-  const [borrowedList, setBookId] = useBorrowed({
+  const [borrowedList, borrowedBook, setBookId] = useBorrowed({
     token: state.token,
     borrowedList: state.borrowedList,
     dispatch: dispatch,
@@ -53,15 +53,20 @@ function BookDetails({ book }: BookCardProps) {
   }, [params.id]);
 
   useEffect(() => {
-    dispatch({
-      type: Actions.setBorrowedList,
-      payload: { borrowedList: borrowedList },
-    });
+    if (borrowedBook === undefined) {
+      return;
+    }
+    setBookDetails(borrowedBook);
+    setBookId("");
+  }, [borrowedBook]);
+
+  useEffect(() => {
     dispatch({
       type: Actions.setFavoritesList,
       payload: { favoritesList: favoritesList },
     });
-  }, [borrowedList, favoritesList]);
+    setFavoritesBookId("");
+  }, [favoritesList]);
 
   if (bookDetails === null) {
     return <div>Loading...</div>;
@@ -86,11 +91,10 @@ function BookDetails({ book }: BookCardProps) {
               href="#"
               className="BookCard__links__borrow"
               onClick={() => {
-                if(state.isAuthenticated) {
+                if (state.isAuthenticated) {
                   setBookId(bookDetails.id);
-                }
-                else {
-                  alert("You need to be logged in to be able to borrow books!")
+                } else {
+                  alert("You need to be logged in to be able to borrow books!");
                 }
               }}
             >
@@ -106,14 +110,17 @@ function BookDetails({ book }: BookCardProps) {
             </a>
           )}
           {!state.favoritesList.includes(bookDetails.id) ? (
-            <BsSuitHeart onClick={() => {
-                if(state.isAuthenticated) {
+            <BsSuitHeart
+              onClick={() => {
+                if (state.isAuthenticated) {
                   setFavoritesBookId(bookDetails.id);
+                } else {
+                  alert(
+                    "You need to be logged in to be able to add books to your favorites!"
+                  );
                 }
-                else {
-                  alert("You need to be logged in to be able to add books to your favorites!")
-                }
-              }} />
+              }}
+            />
           ) : (
             <BsSuitHeartFill
               onClick={() => setFavoritesBookId(bookDetails.id)}

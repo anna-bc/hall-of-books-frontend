@@ -1,79 +1,94 @@
-import React, { Dispatch, useContext, useEffect } from 'react';
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import defaultImage from '../../assets/noImage.png';
-import useBorrowed from '../../hooks/useBorrowed';
-import useFavorites from '../../hooks/useFavorites';
-import { Book } from '../../models/Book';
-import { ActionType, Actions } from '../../state/actions/Actions';
-import { StateContext } from '../../state/context/StateContext';
-import StarRating from '../StarRating/StarRating';
-import './BookCard.scss';
+import React, { useContext, useEffect, useState } from "react";
+
+import "./BookCard.scss";
+
+import defaultImage from "../../assets/noImage.png";
+import useBorrowed from "../../hooks/useBorrowed";
+import useFavorites from "../../hooks/useFavorites";
+import { Book } from "../../models/Book";
+import { Actions } from "../../state/actions/Actions";
+import { StateContext } from "../../state/context/StateContext";
+
+import StarRating from "../StarRating/StarRating";
 
 type BookCardProps = {
-  book: Book
-}
-
+  book: Book;
+};
 
 function BookCard({ book }: BookCardProps) {
+  const { state, dispatch } = useContext(StateContext);
+  const [borrowedList, borrowedBook, setBookId] = useBorrowed({
+    token: state.token,
+    borrowedList: state.borrowedList,
+    dispatch: dispatch,
+  });
+  const [favoritesList, setFavoritesBookId] = useFavorites({
+    token: state.token,
+    favoritesList: state.favoritesList,
+    dispatch: dispatch,
+  });
+  const [updatedBook, setUpdatedBook] = useState<Book>(book);
 
-  const {state, dispatch} = useContext(StateContext);
-  const [borrowedList, setBookId] = useBorrowed({ token: state.token, borrowedList: state.borrowedList, dispatch: dispatch });
-  const [favoritesList, setFavoritesBookId] = useFavorites ({ token: state.token, favoritesList: state.favoritesList, dispatch: dispatch });
-  
   useEffect(() => {
-    dispatch({
-      type: Actions.setBorrowedList,
-      payload: { borrowedList: borrowedList },
-    });
+    console.log(favoritesList);
+    if (borrowedBook === undefined) {
+      return;
+    }
+    setUpdatedBook(borrowedBook);
+    setBookId("");
+  }, [borrowedBook]);
+
+  useEffect(() => {
     dispatch({
       type: Actions.setFavoritesList,
       payload: { favoritesList: favoritesList },
     });
-  }, [borrowedList, favoritesList]);
+    setFavoritesBookId("");
+  }, [favoritesList]);
 
   function handleClick() {
-    if(!state.isAuthenticated) {
+    if (!state.isAuthenticated) {
       alert("You need to be logged in to be able to borrow books!");
-    }
-    else {
-      setBookId(book.id);
+    } else {
+      setBookId(updatedBook.id);
     }
   }
 
   function handleFaveclick() {
-    if(!state.isAuthenticated) {
+    if (!state.isAuthenticated) {
       alert("You need to be logged in to be able to borrow books!");
-    }
-    else {
+    } else {
       setFavoritesBookId(book.id);
     }
   }
 
   return (
     <div className="BookCard">
-      <Link to={`/book/${book.id}`}>
+      <Link to={`/book/${updatedBook.id}`}>
         <div className="BookCard__image">
           {book.thumbnailUrl ? (
-            <img src={book.thumbnailUrl} alt={book.title} />
+            <img src={updatedBook.thumbnailUrl} alt={updatedBook.title} />
           ) : (
             <img src={defaultImage} alt="Default Image" />
           )}
         </div>
       </Link>
       <div className="BookCard__info">
-        <Link to={`/book/${book.id}`}>
-          <h3 className="BookCard__info__title">{book.title}</h3>
+        <Link to={`/book/${updatedBook.id}`}>
+          <h3 className="BookCard__info__title">{updatedBook.title}</h3>
         </Link>
-        <p className="BookCard__info__author">By {book.authors.join(", ")}</p>
-        <StarRating averageRating={book.averageRating} />
+        <p className="BookCard__info__author">
+          By {updatedBook.authors.join(", ")}
+        </p>
+        <StarRating averageRating={updatedBook.averageRating} />
         <p className="BookCard__info__availability">
-          {book.numAvailable} item(-s) available
+          {updatedBook.numAvailable} item(-s) available
         </p>
         <div className="BookCard__links">
-          {!state.borrowedList.includes(book.id) ? (
+          {!state.borrowedList.includes(updatedBook.id) ? (
             <a
-              href="/#"
               className="BookCard__links__borrow"
               onClick={handleClick}
             >
@@ -81,7 +96,6 @@ function BookCard({ book }: BookCardProps) {
             </a>
           ) : (
             <a
-              href="/#"
               className="BookCard__links__borrow"
               onClick={handleClick}
             >
@@ -89,7 +103,7 @@ function BookCard({ book }: BookCardProps) {
             </a>
           )}
 
-          {!state.favoritesList.includes(book.id) ? (
+          {!state.favoritesList.includes(updatedBook.id) ? (
             <BsSuitHeart onClick={handleFaveclick} />
           ) : (
             <BsSuitHeartFill onClick={handleFaveclick} />
@@ -100,4 +114,4 @@ function BookCard({ book }: BookCardProps) {
   );
 }
 
-export default BookCard
+export default BookCard;
