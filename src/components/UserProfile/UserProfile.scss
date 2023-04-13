@@ -1,4 +1,4 @@
-.UserProfile{
+.UserProfile {
   width: 80vw;
   margin: auto;
   padding: 1rem 0;
@@ -24,6 +24,7 @@
       &:last-child {
         border-radius: 0 5px 5px 0; 
       }
+
       &--active {
         background-color: var(--color-liver);
         color: var( --color-silver);
@@ -31,12 +32,13 @@
     }
   }
 
-  &__wrapper{
-    &__title{
+  &__wrapper {
+    &__title {
       text-align: center;
       letter-spacing: 1.5px;
     }
-    &__books{
+
+    &__books {
       padding: 1rem 2rem;
       width: 100%;
       max-width: 1260px;
@@ -50,4 +52,21 @@
     }
   }
 
+  &__info{
+    padding: 1rem 2rem;
+    width: 100%;
+    max-width: 1260px;
+    margin: auto;
+
+    button {
+    border-radius: 0 0 5px;
+    width: 250px;
+    background-color: var(--color-anti-flash-white);
+    border-style: solid;
+    border-color: var(--color-liver);
+    color: var(--color-jet);
+    font-size: 16px;
+    border-radius: 5px;
+    }
+  }
 }
