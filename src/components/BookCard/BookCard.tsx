@@ -1,40 +1,68 @@
-import React, { Dispatch, useContext, useEffect, useState } from 'react';
-import { render } from 'react-dom';
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import defaultImage from '../../assets/noImage.png';
-import useBorrowed from '../../hooks/useBorrowed';
-import useFavorites from '../../hooks/useFavorites';
-import { Book } from '../../models/Book';
-import { ActionType, Actions } from '../../state/actions/Actions';
-import { StateContext } from '../../state/context/StateContext';
-import StarRating from '../StarRating/StarRating';
-import './BookCard.scss';
+import React, { useContext, useEffect, useState } from "react";
+
+import "./BookCard.scss";
+
+import defaultImage from "../../assets/noImage.png";
+import useBorrowed from "../../hooks/useBorrowed";
+import useFavorites from "../../hooks/useFavorites";
+import { Book } from "../../models/Book";
+import { Actions } from "../../state/actions/Actions";
+import { StateContext } from "../../state/context/StateContext";
+
+import StarRating from "../StarRating/StarRating";
 
 type BookCardProps = {
-  book: Book
-}
-
+  book: Book;
+};
 
 function BookCard({ book }: BookCardProps) {
-
-  const {state, dispatch} = useContext(StateContext);
-  const [borrowedList, borrowedBook, setBookId] = useBorrowed({ token: state.token, borrowedList: state.borrowedList, dispatch: dispatch });
-  const [favoritesList, setFavoritesBookId] = useFavorites ({ token: state.token, favoritesList: state.favoritesList, dispatch: dispatch });
+  const { state, dispatch } = useContext(StateContext);
+  const [borrowedList, borrowedBook, setBookId] = useBorrowed({
+    token: state.token,
+    borrowedList: state.borrowedList,
+    dispatch: dispatch,
+  });
+  const [favoritesList, setFavoritesBookId] = useFavorites({
+    token: state.token,
+    favoritesList: state.favoritesList,
+    dispatch: dispatch,
+  });
   const [updatedBook, setUpdatedBook] = useState<Book>(book);
-  
+
   useEffect(() => {
-    if(borrowedBook === undefined) {
+    console.log(favoritesList);
+    if (borrowedBook === undefined) {
       return;
     }
     setUpdatedBook(borrowedBook);
+    setBookId("");
+  }, [borrowedBook]);
+
+  useEffect(() => {
     dispatch({
       type: Actions.setFavoritesList,
       payload: { favoritesList: favoritesList },
     });
-    setBookId('');
-  }, [borrowedBook, favoritesList]);
+    setFavoritesBookId("");
+  }, [favoritesList]);
 
+  function handleClick() {
+    if (!state.isAuthenticated) {
+      alert("You need to be logged in to be able to borrow books!");
+    } else {
+      setBookId(updatedBook.id);
+    }
+  }
+
+  function handleFaveclick() {
+    if (!state.isAuthenticated) {
+      alert("You need to be logged in to be able to borrow books!");
+    } else {
+      setFavoritesBookId(book.id);
+    }
+  }
 
   return (
     <div className="BookCard">
@@ -62,35 +90,28 @@ function BookCard({ book }: BookCardProps) {
           {!state.borrowedList.includes(updatedBook.id) ? (
             <a
               className="BookCard__links__borrow"
-              onClick={() => setBookId(updatedBook.id)}
+              onClick={handleClick}
             >
               Borrow
             </a>
           ) : (
             <a
               className="BookCard__links__borrow"
-              onClick={() => setBookId(updatedBook.id)}
+              onClick={handleClick}
             >
               Return
             </a>
           )}
 
-          {!state.favoritesList.includes(book.id) ? 
-          (
-            <BsSuitHeart
-            onClick={() => setFavoritesBookId(book.id)}
-          />
-          ) :
-          (
-            <BsSuitHeartFill
-            onClick={() => setFavoritesBookId(book.id)}
-          />
-          )
-          }
+          {!state.favoritesList.includes(updatedBook.id) ? (
+            <BsSuitHeart onClick={handleFaveclick} />
+          ) : (
+            <BsSuitHeartFill onClick={handleFaveclick} />
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-export default BookCard
+export default BookCard;
