@@ -1,8 +1,9 @@
-import React, { useEffect, useState }  from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import defaultImage from '../../assets/noImage.png';
 import { Book } from '../../models/Book';
+import { StateContext } from "../../state/context/StateContext";
 import StarRating from '../StarRating/StarRating';
 import './BookCard.scss';
 
@@ -19,16 +20,17 @@ function truncateString(str, maxLength) {
 
 function BookCard({ book }: BookCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const token = 'hob_8a895bff9d49cb69f62ab003779cb0c47a31bb67471ab2a2e2e0c836372aaf6a';
 
+  const { state } = useContext(StateContext);
   
-    useEffect(() => {
+  useEffect(() => {
+    console.log(state.token);
     const fetchFavorites = async () => {
       try {
         const response = await fetch('https://localhost:8000/my/favorites', {
           headers: {
             'Content-Type': 'application/json',
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${state.token}`,
           },
         });
 
@@ -58,7 +60,7 @@ function BookCard({ book }: BookCardProps) {
       method: isFavorite ? 'POST' : 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${token}`,
+        "Authorization": `Bearer ${state.token}`,
       },
     })
       .then((response) => {

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import defaultImage from '../../assets/noImage.png';
 import { Author } from "../../models/Author";
 import { Book } from '../../models/Book';
 import { Category } from "../../models/Category";
+import { StateContext } from "../../state/context/StateContext";
 import StarRating from '../StarRating/StarRating';
 import './BookDetails.scss';
 
@@ -15,9 +16,9 @@ type BookCardProps = {
 
 function BookDetails({ book }: BookCardProps) {
   let params = useParams();
-  const token = 'hob_8a895bff9d49cb69f62ab003779cb0c47a31bb67471ab2a2e2e0c836372aaf6a';
   const [bookDetails, setBookDetails] = useState<Book | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const { state } = useContext(StateContext);
 
   
   useEffect(() => {
@@ -40,7 +41,7 @@ function BookDetails({ book }: BookCardProps) {
         const response = await fetch('https://localhost:8000/my/favorites', {
           headers: {
             'Content-Type': 'application/json',
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${state.token}`,
           },
         });
 
@@ -71,7 +72,7 @@ function BookDetails({ book }: BookCardProps) {
       method: isFavorite ? 'POST' : 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${state.token}`,
       },
     })
       .then(response => {
