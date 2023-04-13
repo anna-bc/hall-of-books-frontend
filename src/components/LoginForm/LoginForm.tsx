@@ -1,7 +1,7 @@
 import { Dispatch, SyntheticEvent, useState } from "react";
-
 import { AiOutlineUser } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 import "./LoginForm.scss";
 
@@ -17,6 +17,12 @@ type LoginFormProps = {
 function LoginForm(props: LoginFormProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  if (props.state.isAuthenticated) {
+    navigate("/");
+    return null; 
+  }
 
   async function handleLogin(e: SyntheticEvent) {
     e.preventDefault();
@@ -54,6 +60,7 @@ function LoginForm(props: LoginFormProps) {
       },
     });
     console.log(props.state.borrowedList);
+    navigate("/");
   }
 
   return (
