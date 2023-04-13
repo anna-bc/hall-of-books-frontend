@@ -7,4 +7,6 @@ export const Actions = {
     setUserIdentifier: 'setUserIdentifier',
     setIsAuthenticated: 'setIsAuthenticated',
     setToken: 'setToken',
+    setBorrowedList: 'setBorrowedList',
+    setFavoritesList: 'setFavoritesList',
 };

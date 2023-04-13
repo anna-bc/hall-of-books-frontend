@@ -2,7 +2,7 @@ import { Author } from './Author';
 import { Category } from './Category';
 
 export type Book = {
-  id: number,
+  id: string,
   title: string, 
   thumbnailUrl: string, 
   description: string,
