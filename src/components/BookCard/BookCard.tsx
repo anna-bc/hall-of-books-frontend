@@ -1,9 +1,10 @@
-import React, { Dispatch, useContext } from 'react';
+import React, { Dispatch, useContext, useEffect } from 'react';
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import defaultImage from '../../assets/noImage.png';
-import useAddBorrowed from '../../hooks/useAddBorrowed';
+import useBorrowed from '../../hooks/useBorrowed';
 import { Book } from '../../models/Book';
+import { Actions, ActionType } from '../../state/actions/Actions';
 import { StateContext } from '../../state/context/StateContext';
 import StarRating from '../StarRating/StarRating';
 import './BookCard.scss';
@@ -16,8 +17,17 @@ type BookCardProps = {
 function BookCard({ book }: BookCardProps) {
 
   const {state, dispatch} = useContext(StateContext);
-  const [favoritesList, setId] = useAddBorrowed({token: state.token});
+  const [borrowedList, setBookId] = useAddBorrowed({ token: state.token, borrowedList: state.borrowedList, dispatch: dispatch });
   
+  useEffect(() => {
+    dispatch({
+      type: Actions.setBorrowedList,
+      payload: { borrowedList: borrowedList },
+    });
+  }, [borrowedList]);
+
+  console.log(state.borrowedList);
+
   return (
     <div className="BookCard">
       <Link to={`/book/${book.id}`}>
@@ -39,11 +49,27 @@ function BookCard({ book }: BookCardProps) {
           {book.numAvailable} item(-s) available
         </p>
         <div className="BookCard__links">
-          <a href="#" className="BookCard__links__borrow" onClick={() => setId(book.id)}>
+          {!state.borrowedList.includes(book.id) ? 
+          (
+            <a
+            href="#"
+            className="BookCard__links__borrow"
+            onClick={() => setBookId(book.id)}
+          >
             Borrow
+          </a>) :
+          (
+            <a
+            href="#"
+            className="BookCard__links__borrow"
+            onClick={() => setBookId(book.id)}
+          >
+            Return
           </a>
+          )
+          }
           {/* <BsSuitHeartFill /> */}
-          <BsSuitHeart/>
+          <BsSuitHeart />
         </div>
       </div>
     </div>
