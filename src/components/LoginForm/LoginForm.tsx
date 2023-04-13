@@ -59,7 +59,17 @@ function LoginForm(props: LoginFormProps) {
         favoritesList: content.user.favorites.map((book: Book) => book.id),
       },
     });
-    console.log(props.state.borrowedList);
+    let storageState = props.state;
+    storageState = {
+      ...storageState,
+      userIdentifier: content.user.username,
+      isAuthenticated: true,
+      token: content.token,
+      borrowedList: content.user.borrowedBooks.map((book: Book) => book.id),
+      favoritesList: content.user.favorites.map((book: Book) => book.id),
+    };
+    localStorage.setItem('state', JSON.stringify(storageState));
+
     navigate("/");
   }
 
