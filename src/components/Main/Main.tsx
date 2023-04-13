@@ -22,8 +22,6 @@ function Main() {
       .catch(error => console.error(error));
   }, []);
 
-  console.log(books);
-
   return (
         <div className='Main'>
           {books.map((book: Book) => (
