@@ -86,10 +86,33 @@ function UserDetailPage() {
             : "Show Personal Information"}
         </button>
         {userInfo && (
+          // <table className="UserProfile__info__infos">
+          //   <tr>
+          //     <th>First Name:</th>
+          //     <td>{userInfo.firstName}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Last Name:</th>
+          //     <td>{userInfo.lastName}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Date of Registration:</th>
+          //     <td>{userInfo.registrationDate}</td>
+          //   </tr>
+          // </table>
+
           <div className="UserProfile__info__infos">
-            <p>First Name: {userInfo.firstName}</p>
-            <p>Last Name: {userInfo.lastName}</p>
-            <p>Date of Registration: {userInfo.registrationDate}</p>
+            <span className="UserProfile__info__infos__bold">
+              {userInfo.firstName} {userInfo.lastName}
+            </span>
+            , as{" "}
+            <span className="UserProfile__info__infos__cursive">
+              {userInfo.username}
+            </span>
+            , reading since{" "}
+            <span className="UserProfile__info__infos__bold">
+              {userInfo.registrationDate}
+            </span>
           </div>
         )}
       </div>

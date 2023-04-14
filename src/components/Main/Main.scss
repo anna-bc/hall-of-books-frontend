@@ -7,7 +7,17 @@
   min-height: 80vh;
   margin: auto;
   display: flex;
-  gap: 59px;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 40px;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__books {
+    display: flex;
+    gap: 59px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 }
