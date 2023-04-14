@@ -4,30 +4,42 @@
   padding: 1rem 0;
 
   &__tabs {
-    width: 200px;
+    width: 350px;
     margin: 0 auto;
     margin-bottom: 1rem;
 
     &__button {
-    border-radius: 0 0 5px;
-    width: 100px;
-    background-color: var(--color-anti-flash-white);
-    border-style: solid;
-    border-color: var(--color-liver);
-    color: var(--color-jet);
-    font-size: 16px;
-      
+      border-radius: 0 0 5px;
+      width: 100px;
+      background-color: var(--color-anti-flash-white);
+      color: var(--color-jet);
+      font-size: 16px;
+
+      height: 35px;
+      width: 175px;
+      border-radius: 45px;
+      border: none;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      padding: 0 40px 0 40px;
+      margin: auto;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease 0s;
+      padding: 0;
+
       &:first-child {
-        border-radius: 5px 0 0 5px; 
+        border-radius: 45px 0 0 45px;
       }
 
       &:last-child {
-        border-radius: 0 5px 5px 0; 
+        border-radius: 0 45px 45px 0;
       }
 
       &--active {
         background-color: var(--color-liver);
-        color: var( --color-silver);
+        color: var(--color-silver);
       }
     }
   }
@@ -48,25 +60,35 @@
       display: flex;
       gap: 59px;
       justify-content: space-between;
-      flex-wrap: wrap;  
+      flex-wrap: wrap;
     }
   }
 
-  &__info{
+  &__info {
     padding: 1rem 2rem;
     width: 100%;
     max-width: 1260px;
-    margin: auto;
+    margin: 20px auto;
+    text-align: center;
 
     button {
-    border-radius: 0 0 5px;
-    width: 250px;
-    background-color: var(--color-anti-flash-white);
-    border-style: solid;
-    border-color: var(--color-liver);
-    color: var(--color-jet);
-    font-size: 16px;
-    border-radius: 5px;
+      height: 35px;
+      width: 350px;
+      border-radius: 45px;
+      border: none;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      padding: 0 40px 0 40px;
+      margin: auto;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease 0s;
+      padding: 0;
+    }
+
+    &__infos {
+      margin: 30px 0;
     }
   }
 }

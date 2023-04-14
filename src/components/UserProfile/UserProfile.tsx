@@ -76,34 +76,54 @@ function UserDetailPage() {
     }
   
   return (
-    <div className='UserProfile'>
-      <div className='UserProfile__tabs'>
+    <div className="UserProfile">
+      <div className="UserProfile__info">
         <button
-          className={`UserProfile__tabs__button ${selectedTab === 'favorites' ? 'UserProfile__tabs__button--active' : ''}`}
-          onClick={() => handleTabChange('favorites')}>Favorites</button> 
-        <button
-          className={`UserProfile__tabs__button ${selectedTab === 'borrowed' ? 'UserProfile__tabs__button--active' : ''}`}
-          onClick={() => handleTabChange('borrowed')}>Borrowed</button> 
+          onClick={showUserInfo ? handleHideUserInfo : handleShowUserInfo}
+        >
+          {showUserInfo
+            ? "Hide Personal Information"
+            : "Show Personal Information"}
+        </button>
+        {userInfo && (
+          <div className="UserProfile__info__infos">
+            <p>First Name: {userInfo.firstName}</p>
+            <p>Last Name: {userInfo.lastName}</p>
+            <p>Date of Registration: {userInfo.registrationDate}</p>
+          </div>
+        )}
       </div>
-      <div className='UserProfile__wrapper'>
-        <h3 className='UserProfile__wrapper__title'>{selectedTab === 'favorites' ? 'My Favorites' : 'My Borrowed Books'}</h3> 
-        <div className='UserProfile__wrapper__books'>
+      <div className="UserProfile__tabs">
+        <button
+          className={`UserProfile__tabs__button ${
+            selectedTab === "favorites"
+              ? "UserProfile__tabs__button--active"
+              : ""
+          }`}
+          onClick={() => handleTabChange("favorites")}
+        >
+          Favorites
+        </button>
+        <button
+          className={`UserProfile__tabs__button ${
+            selectedTab === "borrowed"
+              ? "UserProfile__tabs__button--active"
+              : ""
+          }`}
+          onClick={() => handleTabChange("borrowed")}
+        >
+          Borrowed
+        </button>
+      </div>
+      <div className="UserProfile__wrapper">
+        <h3 className="UserProfile__wrapper__title">
+          {selectedTab === "favorites" ? "My Favorites" : "My Borrowed Books"}
+        </h3>
+        <div className="UserProfile__wrapper__books">
           {books.map((book: Book) => (
             <BookCard key={book.id} book={book} />
           ))}
         </div>
-      </div>
-      <div className='UserProfile__info'>
-        <button onClick={showUserInfo ? handleHideUserInfo : handleShowUserInfo}>
-          {showUserInfo ? 'Hide Personal Information' : 'Show Personal Information'}
-        </button>
-        {userInfo && (
-        <div>
-            <p>First Name: {userInfo.firstName}</p>
-            <p>Last Name: {userInfo.lastName}</p>
-            <p>Date of Registration: { userInfo.registrationDate}</p>
-        </div>
-        )}
       </div>
     </div>
   );
