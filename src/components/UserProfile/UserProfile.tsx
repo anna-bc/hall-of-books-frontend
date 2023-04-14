@@ -5,12 +5,16 @@ import { Category } from '../../models/Category';
 import BookCard from '../BookCard/BookCard';
 import { StateContext } from '../../state/context/StateContext';
 import './UserProfile.scss';
+import { User } from '../../models/User';
 
 function UserDetailPage() {
 
   const [books, setBooks] = useState<Book[]>([]);
   const { state } = useContext(StateContext);
   const [selectedTab, setSelectedTab] = useState<string>('favorites');
+  const [userInfo, setUserInfo] = useState<User | null>(null);
+  const [showUserInfo, setShowUserInfo] = useState<boolean>(false); 
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +49,32 @@ function UserDetailPage() {
     setSelectedTab(tab); 
   }
 
+  const handleShowUserInfo = async () => {
+    try {
+      const response = await fetch(`https://localhost:8000/user/info`, {
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${state.token}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.user);
+        setUserInfo(data.user); 
+        setShowUserInfo(true);
+      } else {
+        console.error('Error fetching user info:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching user info:', error);
+    }
+  }
+
+    const handleHideUserInfo = () => {
+      setShowUserInfo(false);
+      setUserInfo(null); 
+    }
+  
   return (
     <div className='UserProfile'>
       <div className='UserProfile__tabs'>
@@ -62,6 +92,18 @@ function UserDetailPage() {
             <BookCard key={book.id} book={book} />
           ))}
         </div>
+      </div>
+      <div className='UserProfile__info'>
+        <button onClick={showUserInfo ? handleHideUserInfo : handleShowUserInfo}>
+          {showUserInfo ? 'Hide Personal Information' : 'Show Personal Information'}
+        </button>
+        {userInfo && (
+        <div>
+            <p>First Name: {userInfo.firstName}</p>
+            <p>Last Name: {userInfo.lastName}</p>
+            <p>Date of Registration: { userInfo.registrationDate}</p>
+        </div>
+        )}
       </div>
     </div>
   );
