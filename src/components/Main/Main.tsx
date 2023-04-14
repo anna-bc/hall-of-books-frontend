@@ -23,12 +23,14 @@ function Main() {
   }, []);
 
   return (
-        <div className='Main'>
-          {books.map((book: Book) => (
-            <BookCard key={book.id} book={book}/>
-          )
-          )}
-        </div>
+    <div className="Main">
+      <h3 className="Main__title">10 newest releases</h3>
+      <div className="Main__books">
+        {books.map((book: Book) => (
+          <BookCard key={book.id} book={book} />
+        ))}
+      </div>
+    </div>
   );
 }
 

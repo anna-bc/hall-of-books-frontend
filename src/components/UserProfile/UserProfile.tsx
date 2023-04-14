@@ -76,34 +76,77 @@ function UserDetailPage() {
     }
   
   return (
-    <div className='UserProfile'>
-      <div className='UserProfile__tabs'>
+    <div className="UserProfile">
+      <div className="UserProfile__info">
         <button
-          className={`UserProfile__tabs__button ${selectedTab === 'favorites' ? 'UserProfile__tabs__button--active' : ''}`}
-          onClick={() => handleTabChange('favorites')}>Favorites</button> 
-        <button
-          className={`UserProfile__tabs__button ${selectedTab === 'borrowed' ? 'UserProfile__tabs__button--active' : ''}`}
-          onClick={() => handleTabChange('borrowed')}>Borrowed</button> 
+          onClick={showUserInfo ? handleHideUserInfo : handleShowUserInfo}
+        >
+          {showUserInfo
+            ? "Hide Personal Information"
+            : "Show Personal Information"}
+        </button>
+        {userInfo && (
+          // <table className="UserProfile__info__infos">
+          //   <tr>
+          //     <th>First Name:</th>
+          //     <td>{userInfo.firstName}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Last Name:</th>
+          //     <td>{userInfo.lastName}</td>
+          //   </tr>
+          //   <tr>
+          //     <th>Date of Registration:</th>
+          //     <td>{userInfo.registrationDate}</td>
+          //   </tr>
+          // </table>
+
+          <div className="UserProfile__info__infos">
+            <span className="UserProfile__info__infos__bold">
+              {userInfo.firstName} {userInfo.lastName}
+            </span>
+            , as{" "}
+            <span className="UserProfile__info__infos__cursive">
+              {userInfo.username}
+            </span>
+            , reading since{" "}
+            <span className="UserProfile__info__infos__bold">
+              {userInfo.registrationDate}
+            </span>
+          </div>
+        )}
       </div>
-      <div className='UserProfile__wrapper'>
-        <h3 className='UserProfile__wrapper__title'>{selectedTab === 'favorites' ? 'My Favorites' : 'My Borrowed Books'}</h3> 
-        <div className='UserProfile__wrapper__books'>
+      <div className="UserProfile__tabs">
+        <button
+          className={`UserProfile__tabs__button ${
+            selectedTab === "favorites"
+              ? "UserProfile__tabs__button--active"
+              : ""
+          }`}
+          onClick={() => handleTabChange("favorites")}
+        >
+          Favorites
+        </button>
+        <button
+          className={`UserProfile__tabs__button ${
+            selectedTab === "borrowed"
+              ? "UserProfile__tabs__button--active"
+              : ""
+          }`}
+          onClick={() => handleTabChange("borrowed")}
+        >
+          Borrowed
+        </button>
+      </div>
+      <div className="UserProfile__wrapper">
+        <h3 className="UserProfile__wrapper__title">
+          {selectedTab === "favorites" ? "My Favorites" : "My Borrowed Books"}
+        </h3>
+        <div className="UserProfile__wrapper__books">
           {books.map((book: Book) => (
             <BookCard key={book.id} book={book} />
           ))}
         </div>
-      </div>
-      <div className='UserProfile__info'>
-        <button onClick={showUserInfo ? handleHideUserInfo : handleShowUserInfo}>
-          {showUserInfo ? 'Hide Personal Information' : 'Show Personal Information'}
-        </button>
-        {userInfo && (
-        <div>
-            <p>First Name: {userInfo.firstName}</p>
-            <p>Last Name: {userInfo.lastName}</p>
-            <p>Date of Registration: { userInfo.registrationDate}</p>
-        </div>
-        )}
       </div>
     </div>
   );
